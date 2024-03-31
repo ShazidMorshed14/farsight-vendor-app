@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 import '../../foundation/profile_item/profile_item.dart';
+import '../../foundation/sp_solid_button/sp_solid_button.dart';
 import '../../foundation/theme/colors.dart';
+import '../login/login_bottom_sheet.dart';
 import 'profile_footer_content.dart';
 
 class ProfileWithoutLogin extends StatelessWidget {
@@ -49,43 +52,25 @@ class ProfileWithoutLogin extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 22,
-                  left: 165,
-                  child: ElevatedButton(
-                    onPressed: () => {},
-                    style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(0),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                        )),
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColor.accentColor)),
-                    child: Container(
-                        width: MediaQuery.of(context).size.width * .4,
-                        height: 45,
-                        child: Center(
-                            child: Text(
-                          "Log in/Sign up",
-                          style: TextStyle(
-                              color: AppColor.whiteColor,
-                              fontSize: 12.5,
-                              fontWeight: FontWeight.w600),
-                        ))),
-                  ),
-                )
+                    bottom: 22,
+                    left: 165,
+                    child: SPSolidButton(
+                        text: "Log in/Sign up",
+                        widthPercent: .4,
+                        onPressed: () => {Get.bottomSheet(LoginBottomSheet())}))
               ],
             )),
         const SizedBox(height: 18),
         Container(
           color: AppColor.whiteColor,
-          child: const Column(
+          child: Column(
             children: [
               ProfileItem(
-                  title: 'Orders',
-                  assetname: "orders.png",
-                  subtitle: "Check you order status"),
+                title: 'Orders',
+                assetname: "orders.png",
+                subtitle: "Check you order status",
+                onTap: () => {Get.bottomSheet(LoginBottomSheet())},
+              ),
               ProfileItem(
                   title: 'Help Center',
                   assetname: "help-desk.png",

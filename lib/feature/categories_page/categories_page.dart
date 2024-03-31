@@ -15,7 +15,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.scaffoldBGColor,
-      body: SafeArea(child: LoginBottomSheet()),
+      body: Scaffold(
+        body: Center(
+          child: Text("Categories Page"),
+        ),
+      ),
     );
   }
 }
