@@ -5,12 +5,15 @@ class NetworkHandler {
   static final client = http.Client();
   static final storage = FlutterSecureStorage();
 
-  static void post(var body, String endpoint) async {
-    var response = await client.post(buildUri(endpoint) as Uri, body: body);
+  static Future<String> post(var body, String endpoint) async {
+    Uri uri = await buildUri(endpoint);
+    var response = await client
+        .post(uri, body: body, headers: {"Content-type": "application/json"});
+    return response.body;
   }
 
   static Future<Uri> buildUri(String endpoint) async {
-    String host = 'http://192.168.0.104:5000/';
+    String host = 'http://192.168.0.104:5000/api/v1/';
     final apiPath = host + endpoint;
     return Uri.parse(apiPath);
   }
