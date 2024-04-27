@@ -12,13 +12,20 @@ class NetworkHandler {
     return response.body;
   }
 
+  static Future<String> put(var body, String endpoint) async {
+    Uri uri = await buildUri(endpoint);
+    var response = await client
+        .put(uri, body: body, headers: {"Content-type": "application/json"});
+    return response.body;
+  }
+
   static Future<Uri> buildUri(String endpoint) async {
-    String host = 'http://192.168.0.104:5000/api/v1/';
+    String host = 'http://192.168.0.103:5000/api/v1/';
     final apiPath = host + endpoint;
     return Uri.parse(apiPath);
   }
 
-  static void storeToken(String token) async {
+  static Future<void> storeToken(String token) async {
     await storage.write(key: 'token', value: token);
   }
 
