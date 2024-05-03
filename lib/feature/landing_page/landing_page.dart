@@ -1,4 +1,6 @@
+import 'package:farsight_vendor_app/feature/landing_page/controller/landing_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../foundation/sp_icon/sp_icon.dart';
 import '../categories_page/categories_page.dart';
@@ -16,6 +18,8 @@ class _LandingPageState extends State<LandingPage> {
   int currentIndex = 0;
 
   List<Widget> pages = [HomePage(), CategoriesPage(), ProfilePage()];
+
+  var landingPageController = Get.put(LandingPageController());
 
   @override
   Widget build(BuildContext context) {

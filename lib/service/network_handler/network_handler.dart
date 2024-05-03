@@ -12,6 +12,15 @@ class NetworkHandler {
     return response.body;
   }
 
+  static Future<dynamic> get(String endpoint, String? token) async {
+    Uri uri = await buildUri(endpoint);
+    var response = await client.get(uri, headers: {
+      "Content-type": "application/json",
+      "Authorization": "Bearer $token"
+    });
+    return response.body;
+  }
+
   static Future<String> put(var body, String endpoint) async {
     Uri uri = await buildUri(endpoint);
     var response = await client
@@ -20,7 +29,7 @@ class NetworkHandler {
   }
 
   static Future<Uri> buildUri(String endpoint) async {
-    String host = 'http://192.168.0.103:5000/api/v1/';
+    String host = 'http://192.168.0.106:5000/api/v1/';
     final apiPath = host + endpoint;
     return Uri.parse(apiPath);
   }
@@ -29,7 +38,7 @@ class NetworkHandler {
     await storage.write(key: 'token', value: token);
   }
 
-  static Future<String?> getToken(String token) async {
-    await storage.read(key: 'token');
+  static Future<String?> getToken() async {
+    return await storage.read(key: 'token');
   }
 }
