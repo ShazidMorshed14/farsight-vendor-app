@@ -1,40 +1,37 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
+
+import 'package:farsight_vendor_app/constants/env.dart';
+import 'package:farsight_vendor_app/screens/root_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'feature/landing_page/landing_page.dart';
-import 'foundation/theme/colors.dart';
+const mode = 'dev';
 
-void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Future.delayed(
-    const Duration(seconds: 5),
+final env = Environment(mode).getConfig();
+
+void main() {
+  runZonedGuarded(
+    () async {
+      WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+      FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+      await Future.delayed(
+        const Duration(seconds: 2),
+      );
+      FlutterNativeSplash.remove();
+      FlutterError.onError = (FlutterErrorDetails details) {
+        log('Error: ${details.exceptionAsString()}', stackTrace: details.stack);
+      };
+
+      await GetStorage.init('authStorage');
+
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+      runApp(const RootScreen());
+    },
+    (error, stackTrace) => log('Error: $error', stackTrace: stackTrace),
   );
-  FlutterNativeSplash.remove();
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "Farsight",
-      theme: ThemeData(
-          textTheme: TextTheme(
-              titleSmall: TextStyle(
-                fontSize: 14.5,
-                letterSpacing: 0.15,
-                color: AppColor.titleSmall,
-              ),
-              bodyMedium:
-                  TextStyle(fontSize: 14, color: AppColor.bodyTextColor1),
-              bodySmall:
-                  TextStyle(fontSize: 11, color: AppColor.captionColor))),
-      home: LandingPage(),
-    );
-  }
 }

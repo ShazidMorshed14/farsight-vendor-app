@@ -43,9 +43,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   get: ^4.5.1
-  flutter_native_splash: ^2.3.9
-  http: ^1.2.1
+  get_storage: ^2.0.3
+  dio: ^5.2.1+1
+  intl: ^0.18.0
+  connectivity_plus: ^3.0.6
+  dropdown_button2: ^1.9.2
+  lottie: ^2.1.0
+  http: ^0.13.5
   flutter_secure_storage: ^9.0.0
+  flutter_local_notifications: ^15.1.0+1
+  flutter_native_splash: ^2.3.9
+  audioplayers: ^4.0.1
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:
@@ -57,9 +66,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+# flutter_launcher_icons:
+#   android: "launcher_icon"
+#   ios: true
+#   image_path: "assets/images/logo-big.png"
 
 # The following section is specific to Flutter packages.
 flutter:
