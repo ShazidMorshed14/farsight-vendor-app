@@ -138,7 +138,16 @@ class _SignInScreenState extends State<SignInScreen> {
                             Button(
                                 title: 'Sign In',
                                 width: width,
-                                onPressed: () {})
+                                onPressed: () {}),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Developed by Shazid Morshed.',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ],
                         ),
                       ),
