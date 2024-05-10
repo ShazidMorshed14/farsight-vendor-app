@@ -1,3 +1,7 @@
+import 'package:farsight_vendor_app/model/user.dart';
+import 'package:farsight_vendor_app/screens/home_screen.dart';
+import 'package:farsight_vendor_app/screens/password_reset_screen.dart';
+import 'package:farsight_vendor_app/service/auth.dart';
 import 'package:farsight_vendor_app/widgets/no_scroll_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -138,7 +142,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Button(
                                 title: 'Sign In',
                                 width: width,
-                                onPressed: () {}),
+                                onPressed: handleLogin),
                             const SizedBox(height: 10),
                             const Text(
                               'Developed by Shazid Morshed.',
@@ -156,5 +160,48 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ))),
     );
+  }
+
+  void handleLogin() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    User user = await signin(
+      identifier: _phoneController.text,
+      password: _passwordController.text,
+    );
+
+    GetStorage authStorage = GetStorage('authStorage');
+    // ignore: await_only_futures
+    bool isAuth = await authStorage.read('isAuth') ?? false;
+
+    if (isAuth == true) {
+      navigator!.pushAndRemoveUntil(
+        createPageRoute(
+          const HomeScreen(),
+        ),
+        (route) => false,
+      );
+      return;
+    }
+
+    if (user.isPassResetReq == true) {
+      navigator!.pushAndRemoveUntil(
+        createPageRoute(
+          //PasswordResetScreen(phone: _phoneController.text),
+          PasswordResetScreen(),
+        ),
+        (route) => false,
+      );
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 }
