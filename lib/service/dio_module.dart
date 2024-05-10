@@ -28,6 +28,7 @@ class DioModule {
           var token = await storage.read('accessToken');
           // var refreshToken = await storage.read('refreshToken');
 
+          print(options.uri);
           options.headers['Content-Type'] = 'application/json';
 
           if (token != null) {
@@ -87,6 +88,15 @@ class DioModule {
 
             response.data = {
               'message': 'Failed to connect with server!',
+            };
+            return handler.next(response); // continue
+          } else if (response.statusCode == 409) {
+            errorNotif(
+              message: 'Validation Failed!',
+            );
+
+            response.data = {
+              'message': 'Validation Failed!',
             };
             return handler.next(response); // continue
           } else if (response.statusCode == 429) {

@@ -5,9 +5,11 @@ import 'package:farsight_vendor_app/service/request.dart';
 Future<User> signin(
     {required String identifier, required String password}) async {
   Map<String, dynamic> body = {
-    'identifier': identifier,
+    'identifier': '+88' + identifier,
     'password': password,
   };
+
+  print(body);
 
   var response = await postRequest(
     uri: '/vendor/auth/signin',
@@ -28,7 +30,7 @@ Future<User> signin(
 
     return user;
   } else {
-    bool? isPassResetReq = response?['isPassResetReq'];
+    bool? isPassResetReq = response?['data']?['isPassResetReq'];
     return User(
       id: '',
       name: '',

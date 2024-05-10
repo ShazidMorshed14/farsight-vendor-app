@@ -27,7 +27,6 @@ Future<Map<String, dynamic>?> postRequest({
   required String uri,
   Map<String, dynamic>? body,
 }) async {
-  print(uri);
   try {
     final dioModule = DioModule();
     final response = await dioModule.dio.post(

@@ -36,7 +36,7 @@ class User {
       role: json['role'],
       designation: json['designation'],
       status: json['status'],
-      userWeight: json['userWeight'],
+      userWeight: json['user_weight'],
       isPassResetReq: json['isPassResetReq'] ?? false,
     );
   }
