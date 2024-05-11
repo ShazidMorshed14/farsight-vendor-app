@@ -142,6 +142,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Button(
                                 title: 'Sign In',
                                 width: width,
+                                isLoading: isLoading,
                                 onPressed: handleLogin),
                             const SizedBox(height: 10),
                             const Text(
@@ -194,7 +195,8 @@ class _SignInScreenState extends State<SignInScreen> {
       navigator!.pushAndRemoveUntil(
         createPageRoute(
           //PasswordResetScreen(phone: _phoneController.text),
-          PasswordResetScreen(),
+          PasswordResetScreen(
+              id: user.id, phone: '+88${_phoneController.text}'),
         ),
         (route) => false,
       );

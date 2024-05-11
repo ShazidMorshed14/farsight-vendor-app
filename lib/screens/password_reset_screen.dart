@@ -1,12 +1,19 @@
+import 'package:farsight_vendor_app/screens/signin_screen.dart';
+import 'package:farsight_vendor_app/service/auth.dart';
 import 'package:farsight_vendor_app/styles/styles.dart';
+import 'package:farsight_vendor_app/utils/routing.dart';
 import 'package:farsight_vendor_app/widgets/button.dart';
 import 'package:farsight_vendor_app/widgets/no_scroll_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:farsight_vendor_app/model/user.dart';
 
 class PasswordResetScreen extends StatefulWidget {
-  const PasswordResetScreen({super.key});
+  const PasswordResetScreen({super.key, required this.id, this.phone});
+
+  final String id;
+  final String? phone;
 
   @override
   State<PasswordResetScreen> createState() => _PasswordResetScreenState();
@@ -68,6 +75,16 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                               "Reset Password",
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Text(
+                              'Password Reset Required for ${widget.phone}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                             const SizedBox(
                               height: 25,
@@ -142,6 +159,9 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                                 if (value == null || value.isEmpty) {
                                   return 'Enter your password';
                                 }
+                                if (value != _passwordController.text) {
+                                  return "Password didn't matched!";
+                                }
                                 return null;
                               },
                             ),
@@ -151,7 +171,8 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                             Button(
                                 title: 'Reset Password',
                                 width: width,
-                                onPressed: () {}),
+                                isLoading: isLoading,
+                                onPressed: handleResetPassword),
                             const SizedBox(height: 10),
                             const Text(
                               'Developed by Shazid Morshed.',
@@ -167,5 +188,35 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                 ),
               )))),
     );
+  }
+
+  void handleResetPassword() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    bool success = await updatePassword(
+      password: _passwordController.text,
+      confirmPassword: _confirmPasswordController.text,
+      id: widget.id,
+    );
+
+    if (success) {
+      navigator!.pushAndRemoveUntil(
+        createPageRoute(
+          const SignInScreen(),
+        ),
+        (route) => false,
+      );
+      return;
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 }

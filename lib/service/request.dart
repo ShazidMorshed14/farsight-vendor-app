@@ -64,6 +64,26 @@ Future<Map<String, dynamic>?> patchRequest({
   }
 }
 
+Future<Map<String, dynamic>?> putRequest({
+  required String uri,
+  Map<String, dynamic>? body,
+}) async {
+  try {
+    final dio = DioModule();
+    final response = await dio.dio.put(
+      uri,
+      data: body,
+    );
+    var data = response.data;
+    var dataJson = jsonDecode(jsonEncode(data));
+
+    return dataJson;
+  } catch (e) {
+    log(e.toString());
+    return null;
+  }
+}
+
 Future<Map<String, dynamic>?> deleteRequest({
   required String uri,
   Map<String, dynamic>? query,
