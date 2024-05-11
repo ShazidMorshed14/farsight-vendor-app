@@ -7,7 +7,6 @@ import 'package:farsight_vendor_app/widgets/no_scroll_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:farsight_vendor_app/model/user.dart';
 
 class PasswordResetScreen extends StatefulWidget {
   const PasswordResetScreen({super.key, required this.id, this.phone});

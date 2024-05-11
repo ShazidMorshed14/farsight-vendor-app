@@ -42,7 +42,8 @@ class _RootScreenState extends State<RootScreen> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: mode == 'dev',
+      // debugShowCheckedModeBanner: mode == 'dev',
+      debugShowCheckedModeBanner: false,
       initialBinding: RootBindings(),
       title: 'Farsight App',
       theme: ThemeData(

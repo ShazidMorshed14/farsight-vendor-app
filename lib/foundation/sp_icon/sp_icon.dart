@@ -12,7 +12,7 @@ class SPIcon extends StatelessWidget {
       "assets/images/$assetname",
       height: 25,
       width: 25,
-      color: isSelected! ? const Color(0xfffe416c) : Colors.black,
+      color: isSelected! ? const Color(0xffef7d00) : Colors.black,
     );
   }
 }

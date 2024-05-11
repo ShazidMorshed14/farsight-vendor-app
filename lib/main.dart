@@ -29,6 +29,8 @@ void main() {
       await GetStorage.init('authStorage');
 
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
       runApp(const RootScreen());
     },

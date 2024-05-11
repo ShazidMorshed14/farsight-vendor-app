@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:farsight_vendor_app/widgets/footer.dart';
+// import 'package:farsight_vendor_app/widgets/footer.dart';
 
 class Screen extends StatelessWidget {
   final Widget child;
@@ -30,7 +30,7 @@ class Screen extends StatelessWidget {
                 child: child,
               ),
             ),
-            const Footer(),
+            // const Footer(),
           ],
         ),
       ),
