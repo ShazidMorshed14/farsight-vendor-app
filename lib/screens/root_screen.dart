@@ -1,4 +1,5 @@
 import 'package:farsight_vendor_app/screens/home_screen.dart';
+import 'package:farsight_vendor_app/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:developer';
@@ -46,10 +47,13 @@ class _RootScreenState extends State<RootScreen> {
       debugShowCheckedModeBanner: false,
       initialBinding: RootBindings(),
       title: 'Farsight App',
-      theme: ThemeData(
-        fontFamily: 'Mulish',
-        primaryColor: const Color(0xff5567f7),
-      ),
+      themeMode: ThemeMode.system,
+      // theme: ThemeData(
+      //   fontFamily: 'Mulish',
+      //   primaryColor: const Color(0xff5567f7),
+      // ),
+      theme: TAppTheme.lightTheme,
+      darkTheme: TAppTheme.darkTheme,
       home: RenderScreen(
         showSplash: _showSplash,
         isAuthenticated: _isAuthenticated,

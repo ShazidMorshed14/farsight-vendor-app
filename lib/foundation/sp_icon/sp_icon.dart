@@ -1,3 +1,4 @@
+import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class SPIcon extends StatelessWidget {
@@ -12,7 +13,7 @@ class SPIcon extends StatelessWidget {
       "assets/images/$assetname",
       height: 25,
       width: 25,
-      color: isSelected! ? const Color(0xffef7d00) : Colors.black,
+      color: isSelected! ? TColors.tprimary : Colors.black,
     );
   }
 }

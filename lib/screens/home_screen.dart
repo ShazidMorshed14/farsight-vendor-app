@@ -1,3 +1,4 @@
+import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/screens/cart_screen.dart';
 import 'package:farsight_vendor_app/screens/category_screen.dart';
 import 'package:farsight_vendor_app/screens/hero_screen.dart';
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        selectedItemColor: const Color(0xffef7d00),
+        selectedItemColor: TColors.tprimary,
         selectedLabelStyle: const TextStyle(fontSize: 13),
         onTap: (index) {
           setState(() {

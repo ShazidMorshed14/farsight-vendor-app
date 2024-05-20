@@ -1,7 +1,13 @@
+import 'package:farsight_vendor_app/common/widgets/appbar/appbar.dart';
 import 'package:farsight_vendor_app/common/widgets/containers/circular_container.dart';
 import 'package:farsight_vendor_app/common/widgets/containers/primary_header_container.dart';
+import 'package:farsight_vendor_app/common/widgets/containers/search_container.dart';
 import 'package:farsight_vendor_app/common/widgets/curved_edges/curved_edges.dart';
 import 'package:farsight_vendor_app/common/widgets/curved_edges/curved_edges_widget.dart';
+import 'package:farsight_vendor_app/common/widgets/headings/section_heading.dart';
+import 'package:farsight_vendor_app/common/widgets/hero/home_appbar.dart';
+import 'package:farsight_vendor_app/common/widgets/products/cart_menu_icon.dart';
+import 'package:farsight_vendor_app/constants/sizes.dart';
 import 'package:farsight_vendor_app/screens/settings_screen.dart';
 import 'package:farsight_vendor_app/utils/routing.dart';
 import 'package:farsight_vendor_app/widgets/screen.dart';
@@ -46,7 +52,37 @@ class _HeroScreenState extends State<HeroScreen> {
           child: Column(
             children: [
               //header part
-              TPrimaryHeaderContainer(child: Container())
+              TPrimaryHeaderContainer(
+                  child: Column(
+                children: [
+                  ///hero section header
+                  THomeAppBar(),
+
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+
+                  ///searchbar
+                  TSearchContainer(
+                    width: width,
+                    text: "Search in store...",
+                    icon: Icons.search,
+                  ),
+
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+
+                  ///categories
+                  TSectionHeading(
+                    title: 'Popular Categories',
+                    showActionButton: false,
+                  ),
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                ],
+              ))
             ],
           ),
         ),
@@ -76,6 +112,7 @@ class _HeroScreenState extends State<HeroScreen> {
     //       loadingShift = false;
     //     });
     //   }
+
     // } else {
     //   if (mounted) {
     //     setState(() {
