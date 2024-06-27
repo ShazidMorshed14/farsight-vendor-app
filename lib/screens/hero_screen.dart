@@ -1,3 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
+
 import 'package:farsight_vendor_app/common/widgets/appbar/appbar.dart';
 import 'package:farsight_vendor_app/common/widgets/containers/circular_container.dart';
 import 'package:farsight_vendor_app/common/widgets/containers/primary_header_container.dart';
@@ -7,17 +15,11 @@ import 'package:farsight_vendor_app/common/widgets/curved_edges/curved_edges_wid
 import 'package:farsight_vendor_app/common/widgets/headings/section_heading.dart';
 import 'package:farsight_vendor_app/common/widgets/hero/home_appbar.dart';
 import 'package:farsight_vendor_app/common/widgets/products/cart_menu_icon.dart';
+import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
 import 'package:farsight_vendor_app/screens/settings_screen.dart';
 import 'package:farsight_vendor_app/utils/routing.dart';
 import 'package:farsight_vendor_app/widgets/screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:intl/intl.dart';
-import 'package:farsight_vendor_app/constants/colors.dart';
 
 class HeroScreen extends StatefulWidget {
   const HeroScreen({super.key});
@@ -81,6 +83,22 @@ class _HeroScreenState extends State<HeroScreen> {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
+
+                  //categories
+                  SizedBox(
+                    height: 80,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 6,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, index) {
+                          return TVerticalImageText(
+                            image: 'assets/icons/globe.png',
+                            title: 'Shoes',
+                            onTap: () {},
+                          );
+                        }),
+                  )
                 ],
               ))
             ],
@@ -121,5 +139,63 @@ class _HeroScreenState extends State<HeroScreen> {
     //     });
     //   }
     // }
+  }
+}
+
+class TVerticalImageText extends StatelessWidget {
+  const TVerticalImageText({
+    super.key,
+    required this.image,
+    required this.title,
+    this.textColor = Colors.white,
+    this.backgroundColor = Colors.white,
+    this.onTap,
+  });
+
+  final String image, title;
+  final Color textColor;
+  final Color? backgroundColor;
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.only(right: TSizes.spaceBtwItems),
+        child: Column(
+          children: [
+            Container(
+              width: 56,
+              height: 56,
+              padding: const EdgeInsets.all(TSizes.sm),
+              decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: BorderRadius.circular(100)),
+              child: Center(
+                child: Image(
+                  image: AssetImage(image),
+                  fit: BoxFit.cover,
+                  color: TColors.dark,
+                ),
+              ),
+            ),
+            const SizedBox(height: TSizes.spaceBtwItems / 2),
+            SizedBox(
+              width: 55,
+              child: Text(
+                title,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .apply(color: textColor),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

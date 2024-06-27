@@ -8,7 +8,7 @@ class TSectionHeading extends StatelessWidget {
       this.textColor = Colors.white,
       this.buttonTitle = 'View all',
       required this.title,
-      this.showActionButton = false});
+      this.showActionButton = true});
 
   final Color? textColor;
   final bool showActionButton;
@@ -22,6 +22,7 @@ class TSectionHeading extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Popular Categories',
@@ -33,7 +34,12 @@ class TSectionHeading extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               if (showActionButton)
-                TextButton(onPressed: onPressed, child: Text('view all'))
+                TextButton(
+                    onPressed: onPressed,
+                    child: Text(
+                      buttonTitle,
+                      style: TextStyle(color: Colors.white),
+                    ))
             ],
           )
         ],

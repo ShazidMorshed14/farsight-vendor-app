@@ -8,7 +8,7 @@ class Environment {
         'mode': 'DEVELOPMENT',
         'appName': 'Farsight',
         'version': '1.0.0-poc',
-        'baseUrl': 'https://farsight-server.onrender.com/api/v1',
+        'baseUrl': 'http://192.168.0.100:5000/api/v1',
         'secretPin': '9999'
       };
     }
@@ -16,7 +16,7 @@ class Environment {
       'mode': 'STAGING',
       'appName': 'Farsight',
       'version': '1.0.0',
-      'baseUrl': 'http://192.168.0.106:5000/api/v1',
+      'baseUrl': 'https://farsight-server.onrender.com/api/v1',
       'secretPin': '1780'
     };
   }
