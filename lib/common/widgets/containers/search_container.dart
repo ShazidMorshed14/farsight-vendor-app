@@ -8,38 +8,43 @@ class TSearchContainer extends StatelessWidget {
       this.icon,
       this.showBackground = true,
       this.showBorder = true,
+      this.onTap,
       required this.text});
 
   final double width;
   final IconData? icon;
   final bool showBackground, showBorder;
   final String text;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-      child: Container(
-        width: width,
-        padding: const EdgeInsets.all(TSizes.md),
-        decoration: BoxDecoration(
-            color: showBackground ? Colors.white : Colors.transparent,
-            borderRadius: BorderRadius.circular(16.0),
-            border: showBorder ? Border.all(color: Colors.white) : null),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              color: Colors.grey,
-            ),
-            const SizedBox(
-              width: TSizes.spaceBtwItems,
-            ),
-            Text(
-              text,
-              style: Theme.of(context).textTheme.bodySmall,
-            )
-          ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+        child: Container(
+          width: width,
+          padding: const EdgeInsets.all(TSizes.md),
+          decoration: BoxDecoration(
+              color: showBackground ? Colors.white : Colors.transparent,
+              borderRadius: BorderRadius.circular(16.0),
+              border: showBorder ? Border.all(color: Colors.white) : null),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: Colors.grey,
+              ),
+              const SizedBox(
+                width: TSizes.spaceBtwItems,
+              ),
+              Text(
+                text,
+                style: Theme.of(context).textTheme.bodySmall,
+              )
+            ],
+          ),
         ),
       ),
     );

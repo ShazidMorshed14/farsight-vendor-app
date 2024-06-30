@@ -1,4 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:farsight_vendor_app/common/widgets/hero/home_categories.dart';
+import 'package:farsight_vendor_app/common/widgets/hero/promo_slider.dart';
+import 'package:farsight_vendor_app/common/widgets/image_text_widgets/vertical_image_text.dart';
+import 'package:farsight_vendor_app/common/widgets/images/t_rounded_image.dart';
+import 'package:farsight_vendor_app/common/widgets/products/product_card_vertical.dart';
+import 'package:farsight_vendor_app/constants/image_strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -85,22 +92,31 @@ class _HeroScreenState extends State<HeroScreen> {
                   ),
 
                   //categories
-                  SizedBox(
-                    height: 80,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 6,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (_, index) {
-                          return TVerticalImageText(
-                            image: 'assets/icons/globe.png',
-                            title: 'Shoes',
-                            onTap: () {},
-                          );
-                        }),
-                  )
+                  THomeCategories()
                 ],
-              ))
+              )),
+
+              //image carousal section
+              const Padding(
+                padding: EdgeInsets.all(TSizes.defaultSpace),
+                child: Column(
+                  children: [
+                    TPromoSlider(
+                      banners: [
+                        TImages.promoBanner1,
+                        TImages.promoBanner2,
+                        TImages.promoBanner3,
+                        TImages.promoBanner4
+                      ],
+                    ),
+
+                    const SizedBox(height: TSizes.spaceBtwSections),
+
+                    //product grid view section
+                    TProductCardVertical()
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -139,63 +155,5 @@ class _HeroScreenState extends State<HeroScreen> {
     //     });
     //   }
     // }
-  }
-}
-
-class TVerticalImageText extends StatelessWidget {
-  const TVerticalImageText({
-    super.key,
-    required this.image,
-    required this.title,
-    this.textColor = Colors.white,
-    this.backgroundColor = Colors.white,
-    this.onTap,
-  });
-
-  final String image, title;
-  final Color textColor;
-  final Color? backgroundColor;
-  final void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.only(right: TSizes.spaceBtwItems),
-        child: Column(
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              padding: const EdgeInsets.all(TSizes.sm),
-              decoration: BoxDecoration(
-                  color: backgroundColor,
-                  borderRadius: BorderRadius.circular(100)),
-              child: Center(
-                child: Image(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                  color: TColors.dark,
-                ),
-              ),
-            ),
-            const SizedBox(height: TSizes.spaceBtwItems / 2),
-            SizedBox(
-              width: 55,
-              child: Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium!
-                    .apply(color: textColor),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
   }
 }

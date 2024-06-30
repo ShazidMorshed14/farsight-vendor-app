@@ -19,4 +19,15 @@ class TSizes {
   static const double defaultSpace = 24.0;
   static const double spaceBtwItems = 16.0;
   static const double spaceBtwSections = 32.0;
+
+  //product item dimensions
+  static const double productImageSize = 120.0;
+  static const double productImageRadius = 16.0;
+  static const double productImageHeight = 160.0;
+
+  //card sizes
+  static const double cardRadiusLg = 16.0;
+  static const double cardRadiusMd = 12.0;
+  static const double cardRadiusSm = 10.0;
+  static const double cardRadiusXs = 8.0;
 }
