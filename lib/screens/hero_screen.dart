@@ -4,6 +4,7 @@ import 'package:farsight_vendor_app/common/widgets/hero/home_categories.dart';
 import 'package:farsight_vendor_app/common/widgets/hero/promo_slider.dart';
 import 'package:farsight_vendor_app/common/widgets/image_text_widgets/vertical_image_text.dart';
 import 'package:farsight_vendor_app/common/widgets/images/t_rounded_image.dart';
+import 'package:farsight_vendor_app/common/widgets/layouts/grid_layout.dart';
 import 'package:farsight_vendor_app/common/widgets/products/product_card_vertical.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
 import 'package:flutter/cupertino.dart';
@@ -97,10 +98,11 @@ class _HeroScreenState extends State<HeroScreen> {
               )),
 
               //image carousal section
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(TSizes.defaultSpace),
                 child: Column(
                   children: [
+                    //---promo sider section
                     TPromoSlider(
                       banners: [
                         TImages.promoBanner1,
@@ -112,8 +114,19 @@ class _HeroScreenState extends State<HeroScreen> {
 
                     const SizedBox(height: TSizes.spaceBtwSections),
 
-                    //product grid view section
-                    TProductCardVertical()
+                    TSectionHeading(
+                        title: 'Popular Products',
+                        showActionButton: true,
+                        onPressed: () {},
+                        textColor: Colors.black,
+                        leftPadding: TSizes.xs),
+
+                    const SizedBox(height: TSizes.spaceBtwItems),
+
+                    //---product grid view section
+                    TGridLayout(
+                        itemCount: 4,
+                        itemBuilder: (_, index) => TProductCardVertical())
                   ],
                 ),
               )

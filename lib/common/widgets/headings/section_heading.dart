@@ -8,24 +8,26 @@ class TSectionHeading extends StatelessWidget {
       this.textColor = Colors.white,
       this.buttonTitle = 'View all',
       required this.title,
+      this.leftPadding = TSizes.defaultSpace,
       this.showActionButton = true});
 
   final Color? textColor;
   final bool showActionButton;
   final String title, buttonTitle;
   final void Function()? onPressed;
+  final double leftPadding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: TSizes.defaultSpace),
+      padding: EdgeInsets.only(left: leftPadding),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Popular Categories',
+                title,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!
@@ -38,7 +40,8 @@ class TSectionHeading extends StatelessWidget {
                     onPressed: onPressed,
                     child: Text(
                       buttonTitle,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: textColor != null ? textColor : Colors.white),
                     ))
             ],
           )

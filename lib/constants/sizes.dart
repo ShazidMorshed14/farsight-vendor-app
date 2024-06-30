@@ -30,4 +30,7 @@ class TSizes {
   static const double cardRadiusMd = 12.0;
   static const double cardRadiusSm = 10.0;
   static const double cardRadiusXs = 8.0;
+
+  //grid spacings
+  static const double gridViewSpacing = 16.0;
 }

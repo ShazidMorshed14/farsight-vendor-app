@@ -9,7 +9,7 @@ import 'package:farsight_vendor_app/constants/env.dart';
 import 'package:farsight_vendor_app/screens/root_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-const mode = 'dev';
+const mode = 'STAGING';
 
 final env = Environment(mode).getConfig();
 
