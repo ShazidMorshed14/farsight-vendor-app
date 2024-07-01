@@ -106,15 +106,13 @@ class _RenderScreenState extends State<RenderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GetXNetworkManager>(
-      builder: (builder) => !_networkManager.hasConnection
-          ? const NoInternetConnetion()
-          : widget.showSplash == true
-              ? const SplashScreen()
-              : widget.isAuthenticated
-                  ? const HomeScreen()
-                  : const SignInScreen(),
-    );
+    if (widget.showSplash) {
+      return const SplashScreen();
+    } else if (widget.isAuthenticated) {
+      return const HomeScreen();
+    } else {
+      return const SignInScreen();
+    }
   }
 }
 

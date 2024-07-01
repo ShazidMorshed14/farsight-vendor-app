@@ -17,6 +17,7 @@ Future<User> signin(
 
   if (response?['status'] == 200) {
     var data = response?['data'];
+    //print('response-->$response');
     User user = User.fromJson(data['user']);
     // String refreshToken = data['refreshToken'];
     String accessToken = data['token'];
@@ -31,7 +32,7 @@ Future<User> signin(
   } else {
     bool? isPassResetReq = response?['data']?['isPassResetReq'];
     return User(
-      id: response?['data']?['_id'] ?? 'N/A',
+      id: response?['data']?['_id'] ?? '',
       name: '',
       username: '',
       email: '',

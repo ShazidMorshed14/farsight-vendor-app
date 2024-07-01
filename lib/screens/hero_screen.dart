@@ -40,6 +40,7 @@ class _HeroScreenState extends State<HeroScreen> {
   Map<String, dynamic> user = {};
 
   final GetStorage authStorage = GetStorage('authStorage');
+  bool bannersLoading = false;
 
   @override
   void initState() {
@@ -66,7 +67,7 @@ class _HeroScreenState extends State<HeroScreen> {
                   child: Column(
                 children: [
                   ///hero section header
-                  THomeAppBar(),
+                  THomeAppBar(user: user),
 
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
@@ -138,12 +139,13 @@ class _HeroScreenState extends State<HeroScreen> {
   }
 
   preloadData() async {
-    // setState(() {
-    //   shiftData = null;
-    //   loadingShift = true;
-    // });
+    setState(() {
+      bannersLoading = false;
+    });
+    print('bannersLoading-->$bannersLoading');
 
     var userData = await authStorage.read('user');
+    print('userFromHero$userData');
     if (userData != null) {
       setState(() {
         user = userData;

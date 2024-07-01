@@ -181,13 +181,19 @@ class _SignInScreenState extends State<SignInScreen> {
     // ignore: await_only_futures
     bool isAuth = await authStorage.read('isAuth') ?? false;
 
+    //bool isAuth = true;
+
     if (isAuth == true) {
+      setState(() {
+        isLoading = false;
+      });
       navigator!.pushAndRemoveUntil(
         createPageRoute(
           const HomeScreen(),
         ),
         (route) => false,
       );
+
       return;
     }
 
