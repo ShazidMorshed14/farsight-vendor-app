@@ -10,12 +10,14 @@ class TVerticalImageText extends StatelessWidget {
     this.textColor = Colors.white,
     this.backgroundColor = Colors.white,
     this.onTap,
+    this.isNetworkImage = false,
   });
 
   final String image, title;
   final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
+  final bool isNetworkImage;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +36,11 @@ class TVerticalImageText extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100)),
               child: Center(
                 child: Image(
-                  image: AssetImage(image),
+                  image: isNetworkImage
+                      ? NetworkImage(image)
+                      : AssetImage(image) as ImageProvider,
                   fit: BoxFit.cover,
-                  color: TColors.dark,
+                  //color: TColors.dark,
                 ),
               ),
             ),

@@ -74,7 +74,7 @@ class Category {
   String createdBy;
   DateTime createdAt;
   DateTime updatedAt;
-  int v;
+  dynamic v;
 
   Category({
     required this.id,

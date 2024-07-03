@@ -7,6 +7,7 @@ import 'package:farsight_vendor_app/common/widgets/images/t_rounded_image.dart';
 import 'package:farsight_vendor_app/common/widgets/layouts/grid_layout.dart';
 import 'package:farsight_vendor_app/common/widgets/products/product_card_vertical.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
+import 'package:farsight_vendor_app/controllers/subcategory_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -41,6 +42,8 @@ class _HeroScreenState extends State<HeroScreen> {
 
   final GetStorage authStorage = GetStorage('authStorage');
   bool bannersLoading = false;
+  final SubcategoryController subcategoryController =
+      Get.put(SubcategoryController());
 
   @override
   void initState() {
@@ -139,6 +142,8 @@ class _HeroScreenState extends State<HeroScreen> {
   }
 
   preloadData() async {
+    print('Refreshing preload...');
+
     setState(() {
       bannersLoading = false;
     });
@@ -151,6 +156,8 @@ class _HeroScreenState extends State<HeroScreen> {
         user = userData;
       });
     }
+
+    await subcategoryController.fetchSubCategories();
 
     // var res = await fetchShiftInfo();
 

@@ -4,10 +4,13 @@ import 'package:farsight_vendor_app/service/request.dart';
 Future<List<SubCategoryModel>> fetchSubCategoryList() async {
   Map<String, dynamic> query = {};
 
+  print('calling subcategories...');
+
   var response = await getRequest(uri: '/subcategory', query: query);
+  print(response);
 
   if (response?['status'] == 200) {
-    var data = response?['data']?['data'];
+    var data = response?['data'];
     if (data == null) {
       return [];
     }
