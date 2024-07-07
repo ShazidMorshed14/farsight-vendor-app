@@ -56,4 +56,10 @@ class TColors {
   static const Color success = Color(0xDD277E2C);
   static const Color warning = Color(0xFFF57C00);
   static const Color info = Color(0xFF1976D2);
+
+  //Neutral shades
+  static const Color darkerGrey = Color(0xFF4F4F4F);
+  static const Color darkGrey = Color(0xFF939393);
+  static const Color lightGrey = Color(0xFFF9F9F9);
+  static const Color grey = Color(0xFFE0E0E0);
 }
