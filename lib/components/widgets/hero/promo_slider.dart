@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:farsight_vendor_app/common/widgets/containers/circular_container.dart';
-import 'package:farsight_vendor_app/common/widgets/images/t_rounded_image.dart';
+import 'package:farsight_vendor_app/components/widgets/containers/circular_container.dart';
+import 'package:farsight_vendor_app/components/widgets/images/t_rounded_image.dart';
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
-import 'package:farsight_vendor_app/feature/home_page/controllers/home_controller.dart';
+import 'package:farsight_vendor_app/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';

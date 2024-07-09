@@ -1,4 +1,4 @@
-import 'package:farsight_vendor_app/common/widgets/image_text_widgets/vertical_image_text.dart';
+import 'package:farsight_vendor_app/components/widgets/image_text_widgets/vertical_image_text.dart';
 import 'package:farsight_vendor_app/controllers/subcategory_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

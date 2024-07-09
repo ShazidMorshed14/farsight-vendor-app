@@ -1,7 +1,7 @@
-import 'package:farsight_vendor_app/common/widgets/appbar/appbar.dart';
-import 'package:farsight_vendor_app/common/widgets/curved_edges/curved_edges_widget.dart';
-import 'package:farsight_vendor_app/common/widgets/icons/t_circular_icon.dart';
-import 'package:farsight_vendor_app/common/widgets/images/t_rounded_image.dart';
+import 'package:farsight_vendor_app/components/widgets/appbar/appbar.dart';
+import 'package:farsight_vendor_app/components/widgets/curved_edges/curved_edges_widget.dart';
+import 'package:farsight_vendor_app/components/widgets/icons/t_circular_icon.dart';
+import 'package:farsight_vendor_app/components/widgets/images/t_rounded_image.dart';
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';

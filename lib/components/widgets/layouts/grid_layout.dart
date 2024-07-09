@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:farsight_vendor_app/common/widgets/products/product_card_vertical.dart';
+import 'package:farsight_vendor_app/components/widgets/products/product_card_vertical.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
 
 class TGridLayout extends StatelessWidget {

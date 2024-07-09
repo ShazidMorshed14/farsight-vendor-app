@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'package:farsight_vendor_app/common/widgets/appbar/appbar.dart';
-import 'package:farsight_vendor_app/common/widgets/products/cart_menu_icon.dart';
+import 'package:farsight_vendor_app/components/widgets/appbar/appbar.dart';
+import 'package:farsight_vendor_app/components/widgets/products/cart_menu_icon.dart';
 import 'package:farsight_vendor_app/model/user.dart';
 
 class THomeAppBar extends StatelessWidget {

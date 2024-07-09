@@ -1,4 +1,4 @@
-import 'package:farsight_vendor_app/common/widgets/curved_edges/curved_edges.dart';
+import 'package:farsight_vendor_app/components/widgets/curved_edges/curved_edges.dart';
 import 'package:flutter/material.dart';
 
 class TCurvedEdgeWidget extends StatelessWidget {

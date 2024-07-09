@@ -1,4 +1,5 @@
 import 'package:farsight_vendor_app/utils/theme/custom_themes/appbar_theme.dart';
+import 'package:farsight_vendor_app/utils/theme/custom_themes/chip_theme.dart';
 import 'package:farsight_vendor_app/utils/theme/custom_themes/elevated_button_theme.dart';
 import 'package:farsight_vendor_app/utils/theme/custom_themes/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class TAppTheme {
       primaryColor: Colors.blue,
       scaffoldBackgroundColor: Colors.white,
       textTheme: TTextTheme.lightTextTheme,
+      chipTheme: TChipTheme.lightChipTheme,
       elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
       appBarTheme: TAppBarTheme.lightAppBarTheme);
 

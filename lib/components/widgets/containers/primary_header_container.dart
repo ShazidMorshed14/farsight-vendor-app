@@ -1,5 +1,5 @@
-import 'package:farsight_vendor_app/common/widgets/containers/circular_container.dart';
-import 'package:farsight_vendor_app/common/widgets/curved_edges/curved_edges_widget.dart';
+import 'package:farsight_vendor_app/components/widgets/containers/circular_container.dart';
+import 'package:farsight_vendor_app/components/widgets/curved_edges/curved_edges_widget.dart';
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 

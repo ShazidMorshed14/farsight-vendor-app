@@ -1,6 +1,6 @@
-import 'package:farsight_vendor_app/common/widgets/containers/rounded_container.dart';
-import 'package:farsight_vendor_app/common/widgets/texts/product_price_text.dart';
-import 'package:farsight_vendor_app/common/widgets/texts/product_title_text.dart';
+import 'package:farsight_vendor_app/components/widgets/containers/rounded_container.dart';
+import 'package:farsight_vendor_app/components/widgets/texts/product_price_text.dart';
+import 'package:farsight_vendor_app/components/widgets/texts/product_title_text.dart';
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
 import 'package:flutter/material.dart';

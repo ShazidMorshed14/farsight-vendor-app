@@ -1,4 +1,4 @@
-import 'package:farsight_vendor_app/common/widgets/images/t_rounded_image.dart';
+import 'package:farsight_vendor_app/components/widgets/images/t_rounded_image.dart';
 import 'package:farsight_vendor_app/controllers/subcategory_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
