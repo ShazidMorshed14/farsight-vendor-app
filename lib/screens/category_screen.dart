@@ -19,7 +19,7 @@ class CategoryScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else {
             if (subCategoryController.subCategoryList.length < 1) {
-              return const Card(
+              return Container(
                 child: Center(
                   child: Text('No Data Found'),
                 ),

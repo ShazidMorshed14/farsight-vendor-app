@@ -24,9 +24,12 @@ class THomeCategories extends StatelessWidget {
             )));
       } else {
         if (subCategoryController.subCategoryList.length < 1) {
-          return const Card(
+          return Container(
             child: Center(
-              child: Text('No Data Found'),
+              child: Text(
+                'No Data Found',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           );
         } else {

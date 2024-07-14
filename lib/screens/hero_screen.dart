@@ -89,9 +89,9 @@ class _HeroScreenState extends State<HeroScreen> {
 
                   ///categories
                   TSectionHeading(
-                    title: 'Popular Categories',
-                    showActionButton: false,
-                  ),
+                      title: 'Popular Categories',
+                      showActionButton: false,
+                      textColor: Colors.white),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
