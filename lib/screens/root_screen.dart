@@ -53,7 +53,7 @@ class _RootScreenState extends State<RootScreen> {
       //   primaryColor: const Color(0xff5567f7),
       // ),
       theme: TAppTheme.lightTheme,
-      darkTheme: TAppTheme.darkTheme,
+      darkTheme: TAppTheme.lightTheme,
       home: RenderScreen(
         showSplash: _showSplash,
         isAuthenticated: _isAuthenticated,

@@ -7,6 +7,7 @@ import 'package:farsight_vendor_app/components/widgets/images/t_rounded_image.da
 import 'package:farsight_vendor_app/components/widgets/layouts/grid_layout.dart';
 import 'package:farsight_vendor_app/components/widgets/products/product_card_vertical.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
+import 'package:farsight_vendor_app/controllers/product_controller.dart';
 import 'package:farsight_vendor_app/controllers/subcategory_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +43,6 @@ class _HeroScreenState extends State<HeroScreen> {
 
   final GetStorage authStorage = GetStorage('authStorage');
   bool bannersLoading = false;
-  final SubcategoryController subcategoryController =
-      Get.put(SubcategoryController());
 
   @override
   void initState() {
@@ -55,6 +54,11 @@ class _HeroScreenState extends State<HeroScreen> {
   Widget build(BuildContext context) {
     final width = Get.size.width;
     final height = Get.size.height;
+
+    // final ProductController productController = Get.put(ProductController());
+    final SubcategoryController subcategoryController =
+        Get.put(SubcategoryController());
+    final ProductController productController = Get.put(ProductController());
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -128,9 +132,24 @@ class _HeroScreenState extends State<HeroScreen> {
                     const SizedBox(height: TSizes.spaceBtwItems),
 
                     //---product grid view section
-                    TGridLayout(
-                        itemCount: 4,
-                        itemBuilder: (_, index) => TProductCardVertical())
+                    Obx(() {
+                      if (productController.isLoading.value) {
+                        return SizedBox(
+                            height: 80,
+                            child: const Center(
+                                child: CircularProgressIndicator(
+                              color: Colors.white,
+                            )));
+                      }
+
+                      if (productController.featuredProducts.isEmpty) {
+                        return Center(child: Text('No Data Found'));
+                      }
+
+                      return TGridLayout(
+                          itemCount: 4,
+                          itemBuilder: (_, index) => TProductCardVertical());
+                    })
                   ],
                 ),
               )
@@ -157,7 +176,8 @@ class _HeroScreenState extends State<HeroScreen> {
       });
     }
 
-    await subcategoryController.fetchSubCategories();
+    await Get.put(SubcategoryController()).fetchSubCategories();
+    await Get.put(ProductController()).fetchFeaturedProducts();
 
     // var res = await fetchShiftInfo();
 
