@@ -138,7 +138,7 @@ class _HeroScreenState extends State<HeroScreen> {
                             height: 80,
                             child: const Center(
                                 child: CircularProgressIndicator(
-                              color: Colors.white,
+                              color: TColors.tprimary,
                             )));
                       }
 
@@ -146,9 +146,22 @@ class _HeroScreenState extends State<HeroScreen> {
                         return Center(child: Text('No Data Found'));
                       }
 
-                      return TGridLayout(
-                          itemCount: 4,
-                          itemBuilder: (_, index) => TProductCardVertical());
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: TGridLayout(
+                          itemCount: productController.featuredProducts.length,
+                          mainAxisExtent: height * 0.315,
+                          crossAxisCount: 2,
+                          crossAxisSpacing: TSizes.gridViewSpacing,
+                          mainAxisSpacing: TSizes.gridViewSpacing,
+                          itemBuilder: (_, index) {
+                            //final item = menuItems[index];
+                            return TProductCardVertical(
+                                product:
+                                    productController.featuredProducts[index]);
+                          },
+                        ),
+                      );
                     })
                   ],
                 ),

@@ -8,13 +8,19 @@ class TGridLayout extends StatelessWidget {
   const TGridLayout({
     Key? key,
     required this.itemCount,
+    this.crossAxisCount = 2,
     this.mainAxisExtent = 270,
     required this.itemBuilder,
+    this.mainAxisSpacing,
+    this.crossAxisSpacing,
   }) : super(key: key);
 
   final int itemCount;
+  final int? crossAxisCount;
   final double? mainAxisExtent;
   final Widget? Function(BuildContext, int) itemBuilder;
+  final double? mainAxisSpacing;
+  final double? crossAxisSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +30,9 @@ class TGridLayout extends StatelessWidget {
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: TSizes.gridViewSpacing,
-          crossAxisSpacing: TSizes.gridViewSpacing,
+          crossAxisCount: crossAxisCount ?? 2,
+          mainAxisSpacing: mainAxisSpacing ?? TSizes.gridViewSpacing / 2,
+          crossAxisSpacing: crossAxisSpacing ?? TSizes.gridViewSpacing / 2,
           mainAxisExtent: mainAxisExtent,
         ),
         itemBuilder: itemBuilder);

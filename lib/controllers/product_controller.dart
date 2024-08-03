@@ -25,7 +25,7 @@ class ProductController extends GetxController {
       //assign products
       featuredProducts.assignAll(fetchedFeaturedProducts);
     } catch (e) {
-      print('Error fetching categories data: $e');
+      print('Error fetching products data: $e');
     } finally {
       isLoading(false);
     }

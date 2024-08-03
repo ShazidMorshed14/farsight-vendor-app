@@ -1,3 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
+
 import 'package:farsight_vendor_app/components/widgets/containers/rounded_container.dart';
 import 'package:farsight_vendor_app/components/widgets/icons/t_circular_icon.dart';
 import 'package:farsight_vendor_app/components/widgets/images/t_rounded_image.dart';
@@ -7,23 +14,35 @@ import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
 import 'package:farsight_vendor_app/constants/shadows.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
+import 'package:farsight_vendor_app/model/product.dart';
 import 'package:farsight_vendor_app/screens/product_details.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:get/utils.dart';
 
 class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical({super.key});
+  const TProductCardVertical({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final height = Get.size.height;
+    final width = Get.size.width;
+
+    //attributes
+    String? thumbnailImage = product!.productPictures!.isNotEmpty
+        ? product.productPictures![0].img
+        : 'https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-picture-coming-creative-vector-png-image_40968940.jpg';
+    String productTitle = product.name;
+    int productPrice = product.price;
+    String? brand = product?.brand?.name != null ? product?.brand?.name : 'N/A';
+
     return GestureDetector(
       onTap: () => Get.to(() => const ProductDetails()),
       child: Container(
-        width: 180,
-        padding: const EdgeInsets.all(1),
+        //width: 180,
+        padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
             boxShadow: [TShadowStyle.verticalProductShadow],
             borderRadius: BorderRadius.circular(TSizes.productImageRadius),
@@ -32,19 +51,20 @@ class TProductCardVertical extends StatelessWidget {
           children: [
             //thumbnail
             TRoundedContainer(
-              height: 180,
-              padding: EdgeInsets.all(TSizes.sm),
+              //padding: EdgeInsets.all(TSizes.sm),
               backgroundColor: TColors.light,
               child: Stack(
                 children: [
                   TRoundedImage(
-                    imageUrl: TImages.product2,
-                    applyImageRadius: true,
-                  ),
+                      height: height * 0.175,
+                      width: width * 0.45,
+                      isNetworkImage: true,
+                      imageUrl: thumbnailImage!,
+                      applyImageRadius: true),
 
                   //sale tag
                   Positioned(
-                    top: 12,
+                    top: 0,
                     child: TRoundedContainer(
                       backgroundColor: TColors.tsecondary.withOpacity(0.8),
                       radius: TSizes.sm,
@@ -61,14 +81,14 @@ class TProductCardVertical extends StatelessWidget {
                   ),
 
                   //favourite Icon Button
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: TCircularIcon(
-                      icon: Icons.favorite,
-                      color: Colors.red,
-                    ),
-                  ),
+                  // Positioned(
+                  //   top: 0,
+                  //   right: 0,
+                  //   child: TCircularIcon(
+                  //     icon: Icons.favorite,
+                  //     color: Colors.red,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -84,7 +104,7 @@ class TProductCardVertical extends StatelessWidget {
                 children: [
                   //product title
                   TProductTitleText(
-                    title: 'Rayban Sunglasses',
+                    title: productTitle ?? 'N/A',
                     smallSize: true,
                   ),
 
@@ -93,7 +113,7 @@ class TProductCardVertical extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'rayban',
+                        brand ?? 'rayban',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.labelMedium,
@@ -111,7 +131,7 @@ class TProductCardVertical extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       //price
-                      TProductPriceText(price: '500'),
+                      TProductPriceText(price: productPrice ?? 0),
 
                       //add to cart icon
                       Container(

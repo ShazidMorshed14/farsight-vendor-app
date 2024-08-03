@@ -54,7 +54,7 @@ class TProductAttributes extends StatelessWidget {
 
                         const SizedBox(width: TSizes.spaceBtwItems),
 
-                        const TProductPriceText(price: '500')
+                        const TProductPriceText(price: 500)
                       ],
                     ),
                     Row(

@@ -8,7 +8,8 @@ class ProductModel {
   int price;
   String? description;
   String? shape;
-  List<Color>? colors;
+  Brand? brand;
+  List<ColorElement>? colors;
   List<String>? supportedPowers;
   int quantity;
   List<ProductPicture>? productPictures;
@@ -32,6 +33,7 @@ class ProductModel {
     required this.price,
     this.description,
     this.shape,
+    this.brand,
     this.colors,
     this.supportedPowers,
     required this.quantity,
@@ -62,9 +64,11 @@ class ProductModel {
         price: json["price"],
         description: json["description"],
         shape: json["shape"],
+        brand: json["brand"] == null ? null : Brand.fromJson(json["brand"]),
         colors: json["colors"] == null
             ? []
-            : List<Color>.from(json["colors"]!.map((x) => Color.fromJson(x))),
+            : List<ColorElement>.from(
+                json["colors"]!.map((x) => ColorElement.fromJson(x))),
         supportedPowers: json["supportedPowers"] == null
             ? []
             : List<String>.from(json["supportedPowers"]!.map((x) => x)),
@@ -108,6 +112,7 @@ class ProductModel {
         "price": price,
         "description": description,
         "shape": shape,
+        "brand": brand?.toJson(),
         "colors": colors == null
             ? []
             : List<dynamic>.from(colors!.map((x) => x.toJson())),
@@ -162,35 +167,90 @@ class Category {
       };
 }
 
-class Color {
+class Brand {
+  String? id;
+  String? name;
+
+  Brand({
+    this.id,
+    this.name,
+  });
+
+  factory Brand.fromRawJson(String str) => Brand.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Brand.fromJson(Map<String, dynamic> json) => Brand(
+        id: json["_id"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
+      };
+}
+
+class ColorElement {
   int? addAmount;
-  String? color;
+  ColorColor? color;
   int? colorQuantity;
   String? id;
 
-  Color({
+  ColorElement({
     this.addAmount,
     this.color,
     this.colorQuantity,
     this.id,
   });
 
-  factory Color.fromRawJson(String str) => Color.fromJson(json.decode(str));
+  factory ColorElement.fromRawJson(String str) =>
+      ColorElement.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Color.fromJson(Map<String, dynamic> json) => Color(
+  factory ColorElement.fromJson(Map<String, dynamic> json) => ColorElement(
         addAmount: json["add_amount"],
-        color: json["color"],
+        color:
+            json["color"] == null ? null : ColorColor.fromJson(json["color"]),
         colorQuantity: json["color_quantity"],
         id: json["_id"],
       );
 
   Map<String, dynamic> toJson() => {
         "add_amount": addAmount,
-        "color": color,
+        "color": color?.toJson(),
         "color_quantity": colorQuantity,
         "_id": id,
+      };
+}
+
+class ColorColor {
+  String? id;
+  String? name;
+  String? value;
+
+  ColorColor({
+    this.id,
+    this.name,
+    this.value,
+  });
+
+  factory ColorColor.fromRawJson(String str) =>
+      ColorColor.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory ColorColor.fromJson(Map<String, dynamic> json) => ColorColor(
+        id: json["_id"],
+        name: json["name"],
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
+        "value": value,
       };
 }
 

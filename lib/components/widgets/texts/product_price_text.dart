@@ -11,7 +11,8 @@ class TProductPriceText extends StatelessWidget {
     this.lineThrough = false,
   }) : super(key: key);
 
-  final String currencySign, price;
+  final String currencySign;
+  final int price;
   final int maxLines;
   final bool isLarge;
   final bool lineThrough;
@@ -19,7 +20,7 @@ class TProductPriceText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      price + currencySign,
+      '$price  $currencySign',
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       style: isLarge
