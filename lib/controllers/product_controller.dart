@@ -21,6 +21,7 @@ class ProductController extends GetxController {
 
       //fetch product
       final fetchedFeaturedProducts = await fetchFeaturedProductsList();
+      print('products $fetchedFeaturedProducts');
 
       //assign products
       featuredProducts.assignAll(fetchedFeaturedProducts);

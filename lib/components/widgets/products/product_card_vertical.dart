@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:farsight_vendor_app/components/widgets/products/brand_title_with_verified.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -103,29 +104,17 @@ class TProductCardVertical extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //product title
-                  TProductTitleText(
-                    title: productTitle ?? 'N/A',
-                    smallSize: true,
+                  SizedBox(
+                    height: 34,
+                    child: TProductTitleText(
+                      title: productTitle ?? 'N/A',
+                      smallSize: true,
+                    ),
                   ),
 
                   const SizedBox(height: TSizes.spaceBtwItems / 2),
 
-                  Row(
-                    children: [
-                      Text(
-                        brand ?? 'rayban',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                      const SizedBox(width: TSizes.xs),
-                      Icon(
-                        Icons.verified_rounded,
-                        color: TColors.tprimary,
-                        size: TSizes.iconXs,
-                      )
-                    ],
-                  ),
+                  TBrandItemWithVerifiedIcon(title: brand),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

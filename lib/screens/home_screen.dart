@@ -22,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = [
     const HeroScreen(),
     CategoryScreen(),
+    const CartScreen(),
     const ProfileScreen(),
-    const CartScreen()
   ];
   Map<String, dynamic> user = {};
 
