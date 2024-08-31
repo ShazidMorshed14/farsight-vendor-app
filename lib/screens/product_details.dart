@@ -1,3 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
+
 import 'package:farsight_vendor_app/components/widgets/appbar/appbar.dart';
 import 'package:farsight_vendor_app/components/widgets/curved_edges/curved_edges_widget.dart';
 import 'package:farsight_vendor_app/components/widgets/headings/section_heading.dart';
@@ -11,12 +16,15 @@ import 'package:farsight_vendor_app/components/widgets/products/rating_share_wid
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:readmore/readmore.dart';
+import 'package:farsight_vendor_app/model/product.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+  const ProductDetails({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +34,9 @@ class ProductDetails extends StatelessWidget {
         child: Column(
           children: [
             //--product image slider
-            TProductImageSlider(),
+            TProductImageSlider(
+              product: product,
+            ),
 
             //--product details
             Padding(
@@ -39,7 +49,7 @@ class ProductDetails extends StatelessWidget {
                   ///---Rating & Share Button
                   TRatingAndShare(),
                   //------Price Title Stock and Brand
-                  TProductMetaData(),
+                  TProductMetaData(product: product),
 
                   //------Attributes
                   TProductAttributes(),

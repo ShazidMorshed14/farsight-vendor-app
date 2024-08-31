@@ -40,7 +40,7 @@ class TProductCardVertical extends StatelessWidget {
     String? brand = product?.brand?.name != null ? product?.brand?.name : 'N/A';
 
     return GestureDetector(
-      onTap: () => Get.to(() => const ProductDetails()),
+      onTap: () => Get.to(() => ProductDetails(product: product)),
       child: Container(
         //width: 180,
         padding: const EdgeInsets.all(0),

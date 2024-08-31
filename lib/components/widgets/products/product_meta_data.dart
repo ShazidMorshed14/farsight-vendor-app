@@ -1,15 +1,30 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:farsight_vendor_app/components/widgets/texts/product_meta_tag_text.dart';
+import 'package:farsight_vendor_app/controllers/product_controller.dart';
+import 'package:flutter/material.dart';
+
 import 'package:farsight_vendor_app/components/widgets/containers/rounded_container.dart';
 import 'package:farsight_vendor_app/components/widgets/texts/product_price_text.dart';
 import 'package:farsight_vendor_app/components/widgets/texts/product_title_text.dart';
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
-import 'package:flutter/material.dart';
+import 'package:farsight_vendor_app/model/product.dart';
 
 class TProductMetaData extends StatelessWidget {
-  const TProductMetaData({super.key});
+  const TProductMetaData({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salesPercentage = 25;
+    final productTitle = product.name ?? 'N/A';
+    final sku = product.sku ?? 'N/A';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -50,18 +65,25 @@ class TProductMetaData extends StatelessWidget {
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
         ///title
-        TProductTitleText(title: 'Rayban Sunglasse'),
+        TProductTitleText(title: productTitle ?? 'Rayban Sunglasse'),
+        const SizedBox(height: TSizes.spaceBtwItems / 1.5),
+
+        //sku
+        Row(
+          children: [
+            ProductMetaTagSmallText(title: 'SKU:'),
+            const SizedBox(width: TSizes.spaceBtwItems),
+            ProductMetaTagSmallText(title: sku),
+          ],
+        ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
         ///stock status
         Row(
           children: [
-            TProductTitleText(title: 'Status'),
+            ProductMetaTagSmallText(title: 'Status:'),
             const SizedBox(width: TSizes.spaceBtwItems),
-            Text(
-              'In Stock',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            ProductMetaTagSmallText(title: 'In Stock'),
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
