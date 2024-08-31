@@ -21,7 +21,8 @@ class TProductMetaData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
-    final salesPercentage = 25;
+    final salesPercentage =
+        controller.calculatePercentage(product.price, product.discountAmount);
     final productTitle = product.name ?? 'N/A';
     final sku = product.sku ?? 'N/A';
 
@@ -32,16 +33,19 @@ class TProductMetaData extends StatelessWidget {
         Row(
           children: [
             //sale tag
-            TRoundedContainer(
-              radius: TSizes.sm,
-              backgroundColor: TColors.tsecondary.withOpacity(0.8),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: TSizes.sm, vertical: TSizes.xs),
-              child: Text('25%',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelLarge!
-                      .apply(color: Colors.black)),
+            Visibility(
+              visible: salesPercentage != null,
+              child: TRoundedContainer(
+                radius: TSizes.sm,
+                backgroundColor: TColors.tsecondary.withOpacity(0.8),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: TSizes.sm, vertical: TSizes.xs),
+                child: Text('$salesPercentage%',
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .apply(color: Colors.black)),
+              ),
             ),
 
             const SizedBox(width: TSizes.spaceBtwItems),

@@ -31,4 +31,22 @@ class ProductController extends GetxController {
       isLoading(false);
     }
   }
+
+  ///-->Calculate Discount Percentage
+  String? calculatePercentage(int? price, int? discount_amount) {
+    if (discount_amount == null || discount_amount <= 0) {
+      return null;
+    }
+
+    if (price! <= 0) return null;
+
+    int salePrice = price - discount_amount;
+    double percentage = ((price - salePrice) / price) * 100;
+    return percentage.toStringAsFixed(0);
+  }
+
+  ///->Check product Status
+  String getProductStockStatus(int quantity) {
+    return quantity > 0 ? 'In Stock' : 'Out of Stock';
+  }
 }
