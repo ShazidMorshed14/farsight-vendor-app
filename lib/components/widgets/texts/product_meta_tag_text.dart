@@ -5,15 +5,17 @@ class ProductMetaTagSmallText extends StatelessWidget {
   const ProductMetaTagSmallText({
     Key? key,
     required this.title,
+    this.maxLines = 1,
   }) : super(key: key);
 
   final String title;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
-      maxLines: 1,
+      maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
     );

@@ -9,6 +9,7 @@ import 'package:farsight_vendor_app/components/widgets/texts/product_title_text.
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
 import 'package:farsight_vendor_app/model/product.dart';
+import 'package:get/get.dart';
 
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({
@@ -25,6 +26,11 @@ class TProductMetaData extends StatelessWidget {
         controller.calculatePercentage(product.price, product.discountAmount);
     final productTitle = product.name ?? 'N/A';
     final sku = product.sku ?? 'N/A';
+    final price = product.price ?? 0;
+    final discountedPrice =
+        (product.price!.toDouble()) - (product.discountAmount!.toDouble());
+    final stockStatus =
+        controller.getProductStockStatus(product!.quantity ?? 0);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,6 +38,32 @@ class TProductMetaData extends StatelessWidget {
         ///price
         Row(
           children: [
+            //discounted price
+            TProductPriceText(
+              price: discountedPrice.toInt(),
+              isLarge: true,
+            ),
+
+            Visibility(
+                visible: salesPercentage != null,
+                child: const SizedBox(width: TSizes.spaceBtwItems / 2)),
+
+            //price
+            Visibility(
+              visible: salesPercentage != null,
+              child: Text(
+                price.toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .apply(decoration: TextDecoration.lineThrough),
+              ),
+            ),
+
+            Visibility(
+                visible: salesPercentage != null,
+                child: const SizedBox(width: TSizes.spaceBtwItems / 2)),
+
             //sale tag
             Visibility(
               visible: salesPercentage != null,
@@ -47,22 +79,6 @@ class TProductMetaData extends StatelessWidget {
                         .apply(color: Colors.black)),
               ),
             ),
-
-            const SizedBox(width: TSizes.spaceBtwItems),
-
-            //price
-            Text(
-              '250',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall!
-                  .apply(decoration: TextDecoration.lineThrough),
-            ),
-            const SizedBox(width: TSizes.spaceBtwItems),
-            TProductPriceText(
-              price: 500,
-              isLarge: true,
-            )
           ],
         ),
 
@@ -74,10 +90,18 @@ class TProductMetaData extends StatelessWidget {
 
         //sku
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ProductMetaTagSmallText(title: 'SKU:'),
             const SizedBox(width: TSizes.spaceBtwItems),
-            ProductMetaTagSmallText(title: sku),
+            SizedBox(
+              width: Get.size.width * 0.7,
+              child: ProductMetaTagSmallText(
+                title: sku,
+                maxLines: 2,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
@@ -87,7 +111,19 @@ class TProductMetaData extends StatelessWidget {
           children: [
             ProductMetaTagSmallText(title: 'Status:'),
             const SizedBox(width: TSizes.spaceBtwItems),
-            ProductMetaTagSmallText(title: 'In Stock'),
+            ProductMetaTagSmallText(title: stockStatus),
+          ],
+        ),
+        const SizedBox(height: TSizes.spaceBtwItems / 1.5),
+
+        Row(
+          children: [
+            ProductMetaTagSmallText(title: 'Stock:'),
+            const SizedBox(width: TSizes.spaceBtwItems),
+            ProductMetaTagSmallText(
+                title: product!.quantity != null
+                    ? product!.quantity!.toString()
+                    : '0'),
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),

@@ -18,6 +18,8 @@ import 'package:farsight_vendor_app/constants/image_strings.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
 import 'package:farsight_vendor_app/model/product.dart';
 
+import 'package:flutter_html/flutter_html.dart';
+
 class ProductDetails extends StatelessWidget {
   const ProductDetails({
     Key? key,
@@ -52,14 +54,22 @@ class ProductDetails extends StatelessWidget {
                   TProductMetaData(product: product),
 
                   //------Attributes
-                  TProductAttributes(),
+                  TProductAttributes(
+                    product: product,
+                  ),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   //------Checkout Button
                   SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                          onPressed: () {}, child: Text('Checkout'))),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(TSizes.md),
+                            backgroundColor: Colors.black,
+                            side: const BorderSide(color: Colors.black),
+                          ),
+                          onPressed: () {},
+                          child: Text('Checkout'))),
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
@@ -73,21 +83,27 @@ class ProductDetails extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  ReadMoreText(
-                    'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using  making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
-                    trimLines: 2,
-                    trimMode: TrimMode.Line,
-                    trimCollapsedText: 'Show more..',
-                    trimExpandedText: 'Show less..',
-                    moreStyle: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.blue),
-                    lessStyle: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.blue),
-                  ),
+
+                  // ReadMoreText(
+                  //   product!.description ?? '',
+                  //   trimLines: 2,
+                  //   trimMode: TrimMode.Line,
+                  //   trimCollapsedText: 'Show more..',
+                  //   trimExpandedText: 'Show less..',
+                  //   moreStyle: const TextStyle(
+                  //       fontSize: 14,
+                  //       fontWeight: FontWeight.w800,
+                  //       color: Colors.blue),
+                  //   lessStyle: const TextStyle(
+                  //       fontSize: 14,
+                  //       fontWeight: FontWeight.w800,
+                  //       color: Colors.blue),
+                  // ),
+
+                  Center(
+                      child: Html(
+                    data: product!.description ?? "",
+                  )),
 
                   //--bottom navigation bar
                   const Divider(),

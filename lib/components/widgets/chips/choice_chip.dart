@@ -16,7 +16,7 @@ class TChoiceChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isColor = THelperFunctions.getChipColor(text) != null;
+    final isColor = THelperFunctions.getChipColorFromHex(text) != null;
 
     return ChoiceChip(
       label: isColor ? const SizedBox() : Text(text),
@@ -27,12 +27,13 @@ class TChoiceChip extends StatelessWidget {
           ? TCircularContainer(
               width: 50,
               height: 50,
-              backgroundColor: THelperFunctions.getChipColor(text)!)
+              backgroundColor: THelperFunctions.getChipColorFromHex(text)!)
           : null,
       labelPadding: isColor ? const EdgeInsets.all(0) : null,
       shape: isColor ? const CircleBorder() : null,
       padding: isColor ? const EdgeInsets.all(0) : null,
-      backgroundColor: isColor ? THelperFunctions.getChipColor(text)! : null,
+      backgroundColor:
+          isColor ? THelperFunctions.getChipColorFromHex(text)! : null,
     );
   }
 }
