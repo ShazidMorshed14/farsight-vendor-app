@@ -120,7 +120,7 @@ class TProductCardVertical extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       //price
-                      TProductPriceText(price: productPrice ?? 0),
+                      TProductPriceText(price: productPrice!.toString()),
 
                       //add to cart icon
                       Container(

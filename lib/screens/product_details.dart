@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:farsight_vendor_app/controllers/product_variation_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 import 'package:farsight_vendor_app/components/widgets/appbar/appbar.dart';
@@ -21,15 +23,20 @@ import 'package:farsight_vendor_app/model/product.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({
+  ProductDetails({
     Key? key,
     required this.product,
   }) : super(key: key);
 
   final ProductModel product;
 
+  final ProductVariatonController productVariationController =
+      Get.put(ProductVariatonController());
+
   @override
   Widget build(BuildContext context) {
+    productVariationController.initializeProductValues(product);
+
     return Scaffold(
       bottomNavigationBar: TBottomAddToCart(),
       body: SingleChildScrollView(
@@ -62,14 +69,24 @@ class ProductDetails extends StatelessWidget {
                   //------Checkout Button
                   SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(TSizes.md),
-                            backgroundColor: Colors.black,
-                            side: const BorderSide(color: Colors.black),
-                          ),
-                          onPressed: () {},
-                          child: Text('Checkout'))),
+                      child:
+                          Obx(() => productVariationController.productStock > 0
+                              ? ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(TSizes.md),
+                                    backgroundColor: Colors.black,
+                                    side: const BorderSide(color: Colors.black),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text('Checkout'))
+                              : ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(TSizes.md),
+                                    backgroundColor: Colors.black,
+                                    side: const BorderSide(color: Colors.black),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text('Out of Stock')))),
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
@@ -83,22 +100,6 @@ class ProductDetails extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-
-                  // ReadMoreText(
-                  //   product!.description ?? '',
-                  //   trimLines: 2,
-                  //   trimMode: TrimMode.Line,
-                  //   trimCollapsedText: 'Show more..',
-                  //   trimExpandedText: 'Show less..',
-                  //   moreStyle: const TextStyle(
-                  //       fontSize: 14,
-                  //       fontWeight: FontWeight.w800,
-                  //       color: Colors.blue),
-                  //   lessStyle: const TextStyle(
-                  //       fontSize: 14,
-                  //       fontWeight: FontWeight.w800,
-                  //       color: Colors.blue),
-                  // ),
 
                   Center(
                       child: Html(

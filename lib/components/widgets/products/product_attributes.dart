@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:farsight_vendor_app/controllers/product_variation_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ import 'package:farsight_vendor_app/components/widgets/texts/product_title_text.
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
 import 'package:farsight_vendor_app/model/product.dart';
+import 'package:get/get.dart';
 
 class TProductAttributes extends StatelessWidget {
   const TProductAttributes({
@@ -21,6 +23,7 @@ class TProductAttributes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final variationController = ProductVariatonController.instance;
     return Column(
       children: [
         ///-color attributes
@@ -37,16 +40,22 @@ class TProductAttributes extends StatelessWidget {
               height: TSizes.spaceBtwItems / 2,
             ),
             Wrap(
-                spacing: 8,
-                children: product!.colors!
-                    .map(
-                      (item) => TChoiceChip(
-                        text: item!.color!.value ?? '',
-                        selected: true,
-                        onSelected: (value) {},
-                      ),
-                    )
-                    .toList())
+              spacing: 8,
+              children: product.colors!.map((item) {
+                // Check if the current item is the selected variant
+                return Obx(() {
+                  bool isSelected =
+                      variationController.selectedVariant.value?.id == item.id;
+                  return TChoiceChip(
+                    text: item.color!.value ?? '',
+                    selected: isSelected,
+                    onSelected: (value) {
+                      variationController.onAttributeSelected(product, item);
+                    },
+                  );
+                });
+              }).toList(),
+            ),
           ],
         ),
 

@@ -52,7 +52,7 @@ class CartScreen extends StatelessWidget {
                           ]),
 
                           //showing product price
-                          TProductPriceText(price: 250),
+                          TProductPriceText(price: '250'),
                         ],
                       )
                     ],

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:farsight_vendor_app/components/widgets/texts/product_meta_tag_text.dart';
 import 'package:farsight_vendor_app/controllers/product_controller.dart';
+import 'package:farsight_vendor_app/controllers/product_variation_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:farsight_vendor_app/components/widgets/containers/rounded_container.dart';
@@ -22,65 +23,86 @@ class TProductMetaData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
+    final variationController = ProductVariatonController.instance;
     final salesPercentage =
         controller.calculatePercentage(product.price, product.discountAmount);
     final productTitle = product.name ?? 'N/A';
     final sku = product.sku ?? 'N/A';
-    final price = product.price ?? 0;
-    final discountedPrice =
-        (product.price!.toDouble()) - (product.discountAmount!.toDouble());
-    final stockStatus =
-        controller.getProductStockStatus(product!.quantity ?? 0);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ///price
-        Row(
-          children: [
-            //discounted price
-            TProductPriceText(
-              price: discountedPrice.toInt(),
-              isLarge: true,
-            ),
-
-            Visibility(
-                visible: salesPercentage != null,
-                child: const SizedBox(width: TSizes.spaceBtwItems / 2)),
-
-            //price
-            Visibility(
-              visible: salesPercentage != null,
-              child: Text(
-                price.toString(),
-                style: Theme.of(context)
-                    .textTheme
-                    .titleSmall!
-                    .apply(decoration: TextDecoration.lineThrough),
+        Obx(
+          () => Row(
+            children: [
+              //discounted price
+              TProductPriceText(
+                price: variationController.productPrice.toInt().toString(),
+                isLarge: true,
               ),
-            ),
 
-            Visibility(
-                visible: salesPercentage != null,
-                child: const SizedBox(width: TSizes.spaceBtwItems / 2)),
+              Visibility(
+                  visible: variationController.discountPercentage != null &&
+                      variationController.discountPercentage > 0,
+                  child: const SizedBox(width: TSizes.spaceBtwItems / 2)),
 
-            //sale tag
-            Visibility(
-              visible: salesPercentage != null,
-              child: TRoundedContainer(
-                radius: TSizes.sm,
-                backgroundColor: TColors.tsecondary.withOpacity(0.8),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: TSizes.sm, vertical: TSizes.xs),
-                child: Text('$salesPercentage%',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .apply(color: Colors.black)),
+              //price
+              Visibility(
+                visible: variationController.discountPercentage != null &&
+                    variationController.discountPercentage > 0,
+                child: Text(
+                  variationController!.originalPrice!.toString() ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .apply(decoration: TextDecoration.lineThrough),
+                ),
               ),
-            ),
-          ],
+
+              Visibility(
+                  visible: variationController!.discountPercentage != null &&
+                      variationController!.discountPercentage > 0,
+                  child: const SizedBox(width: TSizes.spaceBtwItems / 2)),
+
+              //sale tag
+              Visibility(
+                visible: variationController!.discountPercentage != null &&
+                    variationController!.discountPercentage > 0,
+                child: TRoundedContainer(
+                  radius: TSizes.sm,
+                  backgroundColor: TColors.tsecondary.withOpacity(0.8),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: TSizes.sm, vertical: TSizes.xs),
+                  child: Text('${variationController.discountPercentage ?? 0}%',
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .apply(color: Colors.black)),
+                ),
+              ),
+            ],
+          ),
         ),
+
+        //added amount for variant
+        const SizedBox(height: TSizes.spaceBtwItems / 1.5),
+        Obx(() => Visibility(
+              visible: variationController.addedAmount > 0.0,
+              child: Row(
+                children: [
+                  ProductMetaTagSmallText(
+                    title: 'Added amount for variant:',
+                    textColor: TColors.tprimary,
+                  ),
+                  const SizedBox(width: TSizes.spaceBtwItems / 2),
+                  ProductMetaTagSmallText(
+                    title: '+${variationController.addedAmount.toString()} ৳',
+                    textColor: TColors.tprimary,
+                  ),
+                ],
+              ),
+            )),
 
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
@@ -111,7 +133,15 @@ class TProductMetaData extends StatelessWidget {
           children: [
             ProductMetaTagSmallText(title: 'Status:'),
             const SizedBox(width: TSizes.spaceBtwItems),
-            ProductMetaTagSmallText(title: stockStatus),
+            Obx(
+              () => ProductMetaTagSmallText(
+                title: controller.getProductStockStatus(
+                    variationController.productStock.toInt() ?? 0),
+                textColor: variationController.productStock.toInt() <= 0
+                    ? Colors.red
+                    : Colors.green,
+              ),
+            )
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
@@ -120,10 +150,12 @@ class TProductMetaData extends StatelessWidget {
           children: [
             ProductMetaTagSmallText(title: 'Stock:'),
             const SizedBox(width: TSizes.spaceBtwItems),
-            ProductMetaTagSmallText(
-                title: product!.quantity != null
-                    ? product!.quantity!.toString()
-                    : '0'),
+            Obx(
+              () => ProductMetaTagSmallText(
+                  title: variationController.productStock != null
+                      ? variationController.productStock!.toString()
+                      : '0'),
+            )
           ],
         ),
         const SizedBox(height: TSizes.spaceBtwItems / 1.5),

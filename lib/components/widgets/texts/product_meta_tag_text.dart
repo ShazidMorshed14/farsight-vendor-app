@@ -6,10 +6,12 @@ class ProductMetaTagSmallText extends StatelessWidget {
     Key? key,
     required this.title,
     this.maxLines = 1,
+    this.textColor,
   }) : super(key: key);
 
   final String title;
   final int? maxLines;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,10 @@ class ProductMetaTagSmallText extends StatelessWidget {
       title,
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+      style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: textColor ?? Colors.black),
     );
   }
 }

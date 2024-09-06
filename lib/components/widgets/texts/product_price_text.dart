@@ -12,7 +12,7 @@ class TProductPriceText extends StatelessWidget {
   }) : super(key: key);
 
   final String currencySign;
-  final int price;
+  final String price;
   final int maxLines;
   final bool isLarge;
   final bool lineThrough;
