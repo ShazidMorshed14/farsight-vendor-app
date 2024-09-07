@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/controllers/product_variation_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,12 +34,14 @@ class ProductDetails extends StatelessWidget {
   final ProductVariatonController productVariationController =
       Get.put(ProductVariatonController());
 
+  final CartController _cartController = Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
     productVariationController.initializeProductValues(product);
 
     return Scaffold(
-      bottomNavigationBar: TBottomAddToCart(),
+      bottomNavigationBar: TBottomAddToCart(product: product),
       body: SingleChildScrollView(
         child: Column(
           children: [

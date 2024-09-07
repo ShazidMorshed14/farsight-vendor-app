@@ -26,6 +26,7 @@ void main() {
         log('Error: ${details.exceptionAsString()}', stackTrace: details.stack);
       };
 
+      await GetStorage.init();
       await GetStorage.init('authStorage');
 
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

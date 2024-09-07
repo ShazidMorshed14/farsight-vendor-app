@@ -1,3 +1,4 @@
+import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,7 +51,7 @@ class ProductVariatonController extends GetxController {
     // Store the selected variant
     selectedVariant.value = variant;
 
-    //update the quantity with the variant quantity
+    // Update the quantity with the variant quantity
     productStock.value = variant?.colorQuantity ?? 0;
     if (variant.addAmount! > 0) {
       double currentProductPrice =
@@ -62,6 +63,14 @@ class ProductVariatonController extends GetxController {
           (product.discountAmount?.toDouble() ?? 0);
     }
     addedAmount.value = (variant.addAmount ?? 0.0).toDouble();
+
+    // Set selectQuantity to 1 in CartController
+    CartController cartController = Get.find<CartController>();
+    if (variant?.colorQuantity == 0) {
+      cartController.selectQuantity.value = 0;
+    } else {
+      cartController.selectQuantity.value = 1;
+    }
   }
 
   /// Reset selected attribute
