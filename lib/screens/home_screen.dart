@@ -1,4 +1,5 @@
 import 'package:farsight_vendor_app/constants/colors.dart';
+import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/screens/cart_screen.dart';
 import 'package:farsight_vendor_app/screens/category_screen.dart';
 import 'package:farsight_vendor_app/screens/hero_screen.dart';
@@ -10,7 +11,9 @@ import 'package:get_storage/get_storage.dart';
 import '../foundation/sp_icon/sp_icon.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final CartController _cartController = Get.put(CartController());
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -22,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = [
     const HeroScreen(),
     CategoryScreen(),
-    const CartScreen(),
+    CartScreen(),
     const ProfileScreen(),
   ];
   Map<String, dynamic> user = {};

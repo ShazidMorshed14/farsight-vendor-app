@@ -52,7 +52,6 @@ class CartController extends GetxController {
           quantity: cartItems[existingIndex].quantity + item.quantity,
           price: item.price,
           discountAmount: item.discountAmount ?? 0.0,
-          totalPrice: item.totalPrice,
           variantId: item.variantId,
           color: item.color ?? 'N/A');
 
@@ -83,6 +82,7 @@ class CartController extends GetxController {
   void clearCart() {
     cartItems.clear();
     box.remove('cart');
+    errorNotif(message: 'Cart Cleared!');
   }
 
   // Get the total number of items in the cart

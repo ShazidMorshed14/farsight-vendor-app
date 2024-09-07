@@ -189,7 +189,7 @@ class _SignInScreenState extends State<SignInScreen> {
       });
       navigator!.pushAndRemoveUntil(
         createPageRoute(
-          const HomeScreen(),
+          HomeScreen(),
         ),
         (route) => false,
       );

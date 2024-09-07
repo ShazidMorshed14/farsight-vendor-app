@@ -5,9 +5,9 @@ class CartItem {
   final int quantity;
   final double price;
   final double? discountAmount;
-  final double totalPrice;
   final String variantId;
   final String? color;
+  final String? productImage;
 
   CartItem({
     required this.productId,
@@ -16,9 +16,9 @@ class CartItem {
     required this.quantity,
     required this.price,
     this.discountAmount,
-    required this.totalPrice,
     required this.variantId,
     this.color,
+    this.productImage,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,9 +29,9 @@ class CartItem {
       'quantity': quantity,
       'price': price,
       'discountAmount': discountAmount,
-      'totalPrice': totalPrice,
       'variantId': variantId,
       'color': color,
+      'productImage': productImage,
     };
   }
 
@@ -43,9 +43,9 @@ class CartItem {
       quantity: map['quantity'],
       price: map['price'],
       discountAmount: map['discountAmount'],
-      totalPrice: map['totalPrice'],
       variantId: map['variantId'],
       color: map['color'],
+      productImage: map['productImage'],
     );
   }
 }

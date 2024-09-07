@@ -80,18 +80,22 @@ class TBottomAddToCart extends StatelessWidget {
                       }
                       // Add item to cart
                       CartItem newItem = CartItem(
-                        productId: product.id,
-                        name: product.name,
-                        brand: product.brand?.name ?? 'N/A',
-                        quantity: _cartController.selectQuantity.value ?? 0,
-                        price: _productVariationController.productPrice.value ??
-                            0.0,
-                        discountAmount: product!.discountAmount != null
-                            ? product?.discountAmount?.toDouble()
-                            : 0.0,
-                        totalPrice: _cartController.subtotal,
-                        variantId: selectedVariant.id.toString() ?? 'N/A',
-                      );
+                          productId: product.id,
+                          name: product.name,
+                          brand: product.brand?.name ?? 'N/A',
+                          color: selectedVariant!.color!.name ?? 'N/A',
+                          quantity: _cartController.selectQuantity.value ?? 0,
+                          price:
+                              _productVariationController.productPrice.value ??
+                                  0.0,
+                          discountAmount: product!.discountAmount != null
+                              ? product?.discountAmount?.toDouble()
+                              : 0.0,
+                          variantId: selectedVariant.id.toString() ?? 'N/A',
+                          productImage: product?.productPictures![0]?.img !=
+                                  null
+                              ? product?.productPictures![0]?.img
+                              : 'https://t4.ftcdn.net/jpg/02/07/87/79/360_F_207877921_BtG6ZKAVvtLyc5GWpBNEIlIxsffTtWkv.jpg');
                       _cartController.addItem(newItem);
                     },
                     child: const Text('Add to Cart'),

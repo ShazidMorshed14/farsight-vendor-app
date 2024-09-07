@@ -109,7 +109,7 @@ class _RenderScreenState extends State<RenderScreen> {
     if (widget.showSplash) {
       return const SplashScreen();
     } else if (widget.isAuthenticated) {
-      return const HomeScreen();
+      return HomeScreen();
     } else {
       return const SignInScreen();
     }
