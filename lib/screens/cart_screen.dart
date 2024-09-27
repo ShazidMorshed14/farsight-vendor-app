@@ -60,7 +60,7 @@ class CartScreen extends StatelessWidget {
                         const SizedBox(height: TSizes.spaceBtwSections),
                     itemBuilder: (_, index) {
                       CartItem item = _cartController.cartItems[index];
-                      double productTotal = item.price * item.quantity;
+                      double productTotal = item.product_discounted_price;
                       return Column(
                         children: [
                           TCardItem(cartItem: item),
@@ -70,11 +70,19 @@ class CartScreen extends StatelessWidget {
                             children: [
                               Row(children: [
                                 //add or minus quantity section
-                                TProductQuantityControl(),
+                                TProductQuantityControl(
+                                  cartItem: item,
+                                ),
                               ]),
 
                               //showing product price
-                              TProductPriceText(price: productTotal.toString()),
+                              TProductPriceText(
+                                  price:
+                                      item.product_discounted_price.toString()),
+                              TProductPriceText(
+                                price: item.product_total_price.toString(),
+                                lineThrough: true,
+                              ),
                               IconButton(
                                   onPressed: () {
                                     _cartController.removeItem(item!.productId);

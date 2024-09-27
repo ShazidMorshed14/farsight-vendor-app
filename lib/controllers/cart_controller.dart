@@ -39,21 +39,75 @@ class CartController extends GetxController {
     }
   }
 
+  void incrementCartItemQuantity(CartItem item) {
+    int existingIndex =
+        cartItems.indexWhere((element) => element.productId == item.productId);
+
+    if (existingIndex >= 0) {
+      CartItem selectedCartItem = cartItems[existingIndex];
+      int newQuantity = selectedCartItem.quantity + 1;
+      final totalPrice = selectedCartItem.product_unit_price * newQuantity;
+      final totalDiscountedPrice = (selectedCartItem.product_unit_price -
+              selectedCartItem.product_discount) *
+          newQuantity;
+
+      if (newQuantity <= item.stock) {
+        // Increment the quantity if the item exists
+        selectedCartItem.quantity += 1;
+        selectedCartItem.product_total_price = totalPrice;
+        selectedCartItem.product_discounted_price = totalDiscountedPrice;
+
+        saveCart(); // Save the updated cart
+      } else {
+        errorNotif(message: 'Quantity not available!');
+      }
+    } else {
+      errorNotif(message: 'Item not found in the cart');
+    }
+  }
+
+  void decrementCartItemQuantity(CartItem item) {
+    int existingIndex =
+        cartItems.indexWhere((element) => element.productId == item.productId);
+    if (existingIndex >= 0) {
+      // Decrement the quantity if the item exists and quantity > 1
+      if (cartItems[existingIndex].quantity > 1) {
+        CartItem selectedCartItem = cartItems[existingIndex];
+        int newQuantity = selectedCartItem.quantity - 1;
+        final totalPrice = selectedCartItem.product_unit_price * newQuantity;
+        final totalDiscountedPrice = (selectedCartItem.product_unit_price -
+                selectedCartItem.product_discount) *
+            newQuantity;
+
+        selectedCartItem.quantity -= 1;
+        selectedCartItem.product_total_price = totalPrice;
+        selectedCartItem.product_discounted_price = totalDiscountedPrice;
+        saveCart(); // Save the updated cart
+      } else {
+        // Optionally, remove the item from the cart if the quantity is 1
+        removeItem(item.productId);
+        successNotif(message: 'Item removed from cart');
+      }
+    } else {
+      errorNotif(message: 'Item not found in the cart');
+    }
+  }
+
   // Add an item to the cart
   void addItem(CartItem item) {
     int existingIndex =
         cartItems.indexWhere((element) => element.productId == item.productId);
     if (existingIndex >= 0) {
       // If it exists, update the quantity
-      cartItems[existingIndex] = CartItem(
-          productId: item.productId,
-          name: item.name,
-          brand: item.brand ?? 'N/A',
-          quantity: cartItems[existingIndex].quantity + item.quantity,
-          price: item.price,
-          discountAmount: item.discountAmount ?? 0.0,
-          variantId: item.variantId,
-          color: item.color ?? 'N/A');
+      // cartItems[existingIndex] = CartItem(
+      //     productId: item.productId,
+      //     name: item.name,
+      //     brand: item.brand ?? 'N/A',
+      //     quantity: cartItems[existingIndex].quantity + item.quantity,
+      //     price: item.price,
+      //     discountAmount: item.discountAmount ?? 0.0,
+      //     variantId: item.variantId,
+      //     color: item.color ?? 'N/A');
 
       successNotif(message: 'Added to Cart Successfully!');
     } else {
@@ -76,6 +130,7 @@ class CartController extends GetxController {
     List<Map<String, dynamic>> cartList =
         cartItems.map((e) => e.toMap()).toList();
     box.write('cart', jsonEncode(cartList));
+    cartItems.refresh();
   }
 
   // Clear the cart
@@ -89,6 +144,6 @@ class CartController extends GetxController {
   int get totalItems => cartItems.fold(0, (sum, item) => sum + item.quantity);
 
   // Calculate the subtotal
-  double get subtotal =>
-      cartItems.fold(0, (sum, item) => sum + (item.price * item.quantity));
+  double get subtotal => cartItems.fold(
+      0, (sum, item) => sum + (item.product_discounted_price * item.quantity));
 }

@@ -78,24 +78,44 @@ class TBottomAddToCart extends StatelessWidget {
                         // Handle case where no variant is selected
                         return;
                       }
+
+                      //                  productId: map['productId'],
+                      // product_unit_price: map['product_unit_price'],
+                      // product_discount: map['product_discount'],
+                      // product_total_price: map['product_total_price'],
+                      // product_discounted_price: map['product_discounted_price'],
+                      // quantity: map['quantity'],
+                      // variant: map['variant'],
+                      // name: map['name'],
+                      // brand: map['brand'],
+                      // color: map['color'],
+                      // productImage: map['productImage'],
+
                       // Add item to cart
                       CartItem newItem = CartItem(
                           productId: product.id,
+                          product_unit_price: product.price ?? 0.0,
+                          product_discount: product!.discountAmount != null
+                              ? product?.discountAmount?.toDouble()
+                              : 0.0,
+                          product_total_price: (product.price *
+                                  _cartController.selectQuantity.value)
+                              .toDouble(),
+                          product_discounted_price:
+                              (_productVariationController.productPrice.value *
+                                      _cartController.selectQuantity.value)
+                                  .toDouble(),
                           name: product.name,
                           brand: product.brand?.name ?? 'N/A',
                           color: selectedVariant!.color!.name ?? 'N/A',
                           quantity: _cartController.selectQuantity.value ?? 0,
-                          price:
-                              _productVariationController.productPrice.value ??
-                                  0.0,
-                          discountAmount: product!.discountAmount != null
-                              ? product?.discountAmount?.toDouble()
-                              : 0.0,
-                          variantId: selectedVariant.id.toString() ?? 'N/A',
+                          variant:
+                              selectedVariant.color?.id.toString() ?? 'N/A',
                           productImage: product?.productPictures![0]?.img !=
                                   null
                               ? product?.productPictures![0]?.img
-                              : 'https://t4.ftcdn.net/jpg/02/07/87/79/360_F_207877921_BtG6ZKAVvtLyc5GWpBNEIlIxsffTtWkv.jpg');
+                              : 'https://t4.ftcdn.net/jpg/02/07/87/79/360_F_207877921_BtG6ZKAVvtLyc5GWpBNEIlIxsffTtWkv.jpg',
+                          stock: selectedVariant.colorQuantity ?? 0);
                       _cartController.addItem(newItem);
                     },
                     child: const Text('Add to Cart'),
