@@ -1,0 +1,36 @@
+import 'package:farsight_vendor_app/model/cart_item.dart';
+import 'package:farsight_vendor_app/service/dio_module.dart';
+
+Future<Map<String, dynamic>?> placeMyOrder(
+    {required double total_bill,
+    required double total_discounted_bill,
+    required String delivery_address,
+    String? payment_method,
+    required List<CartItem> ordered_products}) async {
+  List<Map<String, dynamic>> orderedProductsJson =
+      ordered_products.map((item) => item.toJson()).toList();
+
+  Map<String, dynamic> body = {
+    "total_bill": total_bill ?? 0.0,
+    "total_discounted_bill": total_discounted_bill ?? 0.0,
+    "delivery_address": delivery_address,
+    "payment_method": payment_method ?? 'COD',
+    "ordered_products": orderedProductsJson
+  };
+
+  print('req body--->${body}');
+
+  try {
+    final dioModule = DioModule();
+    final response = await dioModule.dio.post(
+      '/vendor/order',
+      data: body,
+    );
+    var data = response.data;
+
+    return data;
+  } catch (e) {
+    print('error printing here--->${e.toString()}');
+    return null;
+  }
+}

@@ -98,18 +98,20 @@ class CartController extends GetxController {
     int existingIndex =
         cartItems.indexWhere((element) => element.productId == item.productId);
     if (existingIndex >= 0) {
-      // If it exists, update the quantity
-      // cartItems[existingIndex] = CartItem(
-      //     productId: item.productId,
-      //     name: item.name,
-      //     brand: item.brand ?? 'N/A',
-      //     quantity: cartItems[existingIndex].quantity + item.quantity,
-      //     price: item.price,
-      //     discountAmount: item.discountAmount ?? 0.0,
-      //     variantId: item.variantId,
-      //     color: item.color ?? 'N/A');
-
-      successNotif(message: 'Added to Cart Successfully!');
+      CartItem selectedCartItem = cartItems[existingIndex];
+      int newQuantity = selectedCartItem.quantity + item.quantity;
+      final totalPrice = selectedCartItem.product_unit_price * newQuantity;
+      final totalDiscountedPrice = (selectedCartItem.product_unit_price -
+              selectedCartItem.product_discount) *
+          newQuantity;
+      if (newQuantity <= item.stock) {
+        selectedCartItem.quantity = newQuantity;
+        selectedCartItem.product_total_price = totalPrice;
+        selectedCartItem.product_discounted_price = totalDiscountedPrice;
+        successNotif(message: 'Added to Cart Successfully!');
+      } else {
+        errorNotif(message: 'Quantity not available!');
+      }
     } else {
       // If it doesn't exist, add the new item
       cartItems.add(item);
@@ -142,6 +144,14 @@ class CartController extends GetxController {
 
   // Get the total number of items in the cart
   int get totalItems => cartItems.fold(0, (sum, item) => sum + item.quantity);
+
+  // Calculate the total
+  double get get_total_bill => cartItems.fold(
+      0, (sum, item) => sum + (item.product_unit_price * item.quantity));
+
+  // Calculate the discount
+  double get get_total_discount => cartItems.fold(
+      0, (sum, item) => sum + (item.product_discount * item.quantity));
 
   // Calculate the subtotal
   double get subtotal => cartItems.fold(

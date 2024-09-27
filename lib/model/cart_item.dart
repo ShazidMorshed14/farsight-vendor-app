@@ -43,6 +43,23 @@ class CartItem {
     };
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'productId': productId,
+      'product_unit_price': product_unit_price,
+      'product_discount': product_discount,
+      'product_total_price': product_total_price,
+      'product_discounted_price': product_discounted_price,
+      'quantity': quantity,
+      'variant': variant,
+      'name': name,
+      'brand': brand,
+      'color': color,
+      'productImage': productImage,
+      'stock': stock
+    };
+  }
+
   factory CartItem.fromMap(Map<String, dynamic> map) {
     return CartItem(
       productId: map['productId'],
