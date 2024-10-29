@@ -13,6 +13,7 @@ import 'package:farsight_vendor_app/constants/sizes.dart';
 import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:farsight_vendor_app/screens/checkout_screen.dart';
+import 'package:farsight_vendor_app/utils/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +43,11 @@ class CartScreen extends StatelessWidget {
           padding: const EdgeInsets.all(TSizes.sm),
           child: Obx(() => ElevatedButton(
               onPressed: () {
-                Get.to(() => CheckoutScreen());
+                if (_cartController.cartItems.length > 0) {
+                  Get.to(() => CheckoutScreen());
+                } else {
+                  errorNotif(message: 'Please add items to cart');
+                }
               },
               child: Text('Checkout ${_cartController!.subtotal ?? 0} BDT'))),
         ),

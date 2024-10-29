@@ -7,8 +7,10 @@ import 'package:farsight_vendor_app/components/widgets/images/t_rounded_image.da
 import 'package:farsight_vendor_app/components/widgets/layouts/grid_layout.dart';
 import 'package:farsight_vendor_app/components/widgets/products/product_card_vertical.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
+import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/controllers/product_controller.dart';
 import 'package:farsight_vendor_app/controllers/subcategory_controller.dart';
+import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -59,6 +61,7 @@ class _HeroScreenState extends State<HeroScreen> {
     final SubcategoryController subcategoryController =
         Get.put(SubcategoryController());
     final ProductController productController = Get.put(ProductController());
+    final _cartController = Get.put(CartController());
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -155,10 +158,25 @@ class _HeroScreenState extends State<HeroScreen> {
                           crossAxisSpacing: TSizes.gridViewSpacing,
                           mainAxisSpacing: TSizes.gridViewSpacing,
                           itemBuilder: (_, index) {
-                            //final item = menuItems[index];
+                            final product =
+                                productController.featuredProducts[index];
+
+                            final isInCart = _cartController.cartItems
+                                .any((item) => item.productId == product.id);
+                            final inCartIndex = _cartController.cartItems
+                                .indexWhere(
+                                    (item) => item.productId == product.id);
+
+                            int totalAddedQty = 0;
+                            if (inCartIndex != -1) {
+                              CartItem foundItem =
+                                  _cartController.cartItems[inCartIndex];
+                              totalAddedQty = foundItem?.quantity ?? 0;
+                            }
                             return TProductCardVertical(
-                                product:
-                                    productController.featuredProducts[index]);
+                                product: product,
+                                isInCart: isInCart,
+                                totalAddedQty: totalAddedQty);
                           },
                         ),
                       );

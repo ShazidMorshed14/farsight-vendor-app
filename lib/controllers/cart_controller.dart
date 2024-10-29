@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:farsight_vendor_app/controllers/product_controller.dart';
 import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:farsight_vendor_app/utils/notification.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,8 @@ import 'package:get_storage/get_storage.dart';
 
 class CartController extends GetxController {
   static CartController get instance => Get.find();
+
+  final productController = Get.put(ProductController());
 
   final box = GetStorage();
   var cartItems = <CartItem>[].obs; // Observable list for live updates
@@ -95,8 +99,8 @@ class CartController extends GetxController {
 
   // Add an item to the cart
   void addItem(CartItem item) {
-    int existingIndex =
-        cartItems.indexWhere((element) => element.productId == item.productId);
+    int existingIndex = cartItems.indexWhere((element) =>
+        element.productId == item.productId && element.variant == item.variant);
     if (existingIndex >= 0) {
       CartItem selectedCartItem = cartItems[existingIndex];
       int newQuantity = selectedCartItem.quantity + item.quantity;
@@ -129,16 +133,20 @@ class CartController extends GetxController {
 
   // Save the cart to GetStorage
   void saveCart() {
+    productController.isLoading(true);
     List<Map<String, dynamic>> cartList =
         cartItems.map((e) => e.toMap()).toList();
     box.write('cart', jsonEncode(cartList));
     cartItems.refresh();
+    productController.isLoading(false);
   }
 
   // Clear the cart
   void clearCart() {
     cartItems.clear();
     box.remove('cart');
+    productController.isLoading(true);
+    productController.isLoading(false);
     errorNotif(message: 'Cart Cleared!');
   }
 
