@@ -19,6 +19,9 @@ class TColors {
   static const Color tsecondary = Color(0xFFFFE24B);
   static const Color taccent = Color(0xFFb0c7ff);
 
+  //icon colors
+  static const Color tIconPrimary = Color(0xFF606060);
+
   //Gradient Colors
   static const Gradient linearGradient = LinearGradient(
       begin: Alignment(0.0, 0.0),

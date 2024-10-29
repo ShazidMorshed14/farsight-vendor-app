@@ -4,6 +4,7 @@ import 'package:farsight_vendor_app/screens/cart_screen.dart';
 import 'package:farsight_vendor_app/screens/category_screen.dart';
 import 'package:farsight_vendor_app/screens/hero_screen.dart';
 import 'package:farsight_vendor_app/screens/profile_screen.dart';
+import 'package:farsight_vendor_app/screens/shop_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> pages = [
     const HeroScreen(),
-    CategoryScreen(),
+    ShopScreen(),
     CartScreen(),
     const ProfileScreen(),
   ];
@@ -62,10 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
               label: "Home"),
           BottomNavigationBarItem(
               icon: SPIcon(
-                assetname: "categories.png",
+                assetname: "img.png",
                 isSelected: currentIndex == 1 ? true : false,
               ),
-              label: "Categories"),
+              label: "Shop"),
           BottomNavigationBarItem(
               icon: SPIcon(
                 assetname: "shopping-cart.png",
