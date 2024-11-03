@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const HeroScreen(),
     ShopScreen(),
     CartScreen(),
-    const ProfileScreen(),
+    ProfileScreen(),
   ];
   Map<String, dynamic> user = {};
 

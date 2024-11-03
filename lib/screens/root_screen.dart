@@ -1,6 +1,7 @@
 import 'package:farsight_vendor_app/screens/home_screen.dart';
 import 'package:farsight_vendor_app/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'dart:developer';
 import 'package:get_storage/get_storage.dart';
@@ -42,21 +43,25 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      // debugShowCheckedModeBanner: mode == 'dev',
-      debugShowCheckedModeBanner: false,
-      initialBinding: RootBindings(),
-      title: 'Farsight App',
-      themeMode: ThemeMode.system,
-      // theme: ThemeData(
-      //   fontFamily: 'Mulish',
-      //   primaryColor: const Color(0xff5567f7),
-      // ),
-      theme: TAppTheme.lightTheme,
-      darkTheme: TAppTheme.lightTheme,
-      home: RenderScreen(
-        showSplash: _showSplash,
-        isAuthenticated: _isAuthenticated,
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      child: GetMaterialApp(
+        // debugShowCheckedModeBanner: mode == 'dev',
+        debugShowCheckedModeBanner: false,
+        initialBinding: RootBindings(),
+        title: 'Farsight App',
+        themeMode: ThemeMode.system,
+        // theme: ThemeData(
+        //   fontFamily: 'Mulish',
+        //   primaryColor: const Color(0xff5567f7),
+        // ),
+        theme: TAppTheme.lightTheme,
+        darkTheme: TAppTheme.lightTheme,
+        home: RenderScreen(
+          showSplash: _showSplash,
+          isAuthenticated: _isAuthenticated,
+        ),
       ),
     );
   }

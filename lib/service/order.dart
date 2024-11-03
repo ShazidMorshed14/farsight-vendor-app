@@ -1,5 +1,7 @@
 import 'package:farsight_vendor_app/model/cart_item.dart';
+import 'package:farsight_vendor_app/model/order.dart';
 import 'package:farsight_vendor_app/service/dio_module.dart';
+import 'package:farsight_vendor_app/service/request.dart';
 
 Future<Map<String, dynamic>?> placeMyOrder(
     {required double total_bill,
@@ -33,4 +35,22 @@ Future<Map<String, dynamic>?> placeMyOrder(
     print('error printing here--->${e.toString()}');
     return null;
   }
+}
+
+Future<List<Order>?> fetchOrders() async {
+  var response = await getRequest(uri: '/vendor/order');
+
+  print('order list response-->$response');
+
+  if (response?['status'] == 200) {
+    var data = response?['data']; // List of orders
+    if (data == null) {
+      return null;
+    }
+
+    return (data as List)
+        .map((orderJson) => Order.fromJson(orderJson))
+        .toList();
+  }
+  return null;
 }

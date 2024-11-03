@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/model/cart_item.dart';
+import 'package:farsight_vendor_app/model/order.dart';
 import 'package:farsight_vendor_app/screens/home_screen.dart';
 import 'package:farsight_vendor_app/service/order.dart';
 import 'package:farsight_vendor_app/utils/notification.dart';
@@ -11,7 +13,10 @@ class OrderController extends GetxController {
 
   final _cartController = CartController.instance;
 
+  var isLoading = true.obs;
   var isBtnLoading = false.obs;
+
+  RxList<Order> ordersList = <Order>[].obs;
 
   // Delivery address controller and focus node
   final TextEditingController deliveryAddressController =
@@ -58,6 +63,21 @@ class OrderController extends GetxController {
       print(e);
     } finally {
       isBtnLoading.toggle();
+    }
+  }
+
+  //fetch all orders
+  Future<void> fetchAllOrders() async {
+    try {
+      isLoading(true);
+      final fetchedOrders = await fetchOrders(); // Fetch list of orders
+      print(fetchedOrders);
+      ordersList.value =
+          fetchedOrders ?? []; // Assign fetched list or an empty list
+    } catch (e) {
+      print(e);
+    } finally {
+      isLoading(false);
     }
   }
 
