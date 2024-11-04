@@ -6,6 +6,7 @@ import 'package:farsight_vendor_app/service/request.dart';
 Future<Map<String, dynamic>?> placeMyOrder(
     {required double total_bill,
     required double total_discounted_bill,
+    required String contact_no,
     required String delivery_address,
     String? payment_method,
     required List<CartItem> ordered_products}) async {
@@ -15,6 +16,7 @@ Future<Map<String, dynamic>?> placeMyOrder(
   Map<String, dynamic> body = {
     "total_bill": total_bill ?? 0.0,
     "total_discounted_bill": total_discounted_bill ?? 0.0,
+    "contact_no": contact_no,
     "delivery_address": delivery_address,
     "payment_method": payment_method ?? 'COD',
     "ordered_products": orderedProductsJson
@@ -53,4 +55,19 @@ Future<List<Order>?> fetchOrders() async {
         .toList();
   }
   return null;
+}
+
+Future<Order?> fetchOrderDetailsByOrderNo(String orderNo) async {
+  var response = await getRequest(uri: '/vendor/order/$orderNo');
+
+  print('order details response-->$response');
+
+  if (response?['status'] == 200) {
+    var data = response?['data'];
+    if (data != null) {
+      // Parse the data directly into an Outlet
+      return Order.fromJson(data); // Ensure Outlet.fromJson exists
+    }
+  }
+  return null; // If there's no valid data, return null
 }

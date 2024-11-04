@@ -10,6 +10,7 @@ class Order {
   int? totalBill;
   int? totalDiscountedBill;
   String? deliveryAddress;
+  String? contactNo;
   List<OrderedProduct>? orderedProducts;
   String? paymentMethod;
   dynamic cardNo;
@@ -35,6 +36,7 @@ class Order {
     this.totalBill,
     this.totalDiscountedBill,
     this.deliveryAddress,
+    this.contactNo,
     this.orderedProducts,
     this.paymentMethod,
     this.cardNo,
@@ -68,6 +70,7 @@ class Order {
         totalBill: json["total_bill"],
         totalDiscountedBill: json["total_discounted_bill"],
         deliveryAddress: json["delivery_address"],
+        contactNo: json["contact_no"],
         orderedProducts: json["ordered_products"] == null
             ? []
             : List<OrderedProduct>.from(json["ordered_products"]!

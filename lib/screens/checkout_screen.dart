@@ -46,6 +46,7 @@ class CheckoutScreen extends StatelessWidget {
                         await _orderController.placeOrder(
                             total_bill: _cartController.get_total_bill,
                             total_discounted_bill: _cartController.subtotal,
+                            contact_no: _orderController.contactController.text,
                             delivery_address:
                                 _orderController.deliveryAddressController.text,
                             payment_method:
@@ -108,13 +109,36 @@ class CheckoutScreen extends StatelessWidget {
               }
             }),
 
-            // Delivery address section
             const SizedBox(height: 20),
-            TSectionHeading(
-              title: 'Delivery Address',
-              leftPadding: 0.0,
-              showActionButton: false,
+            // TextField with TextEditingController for delivery address
+            // TextField with TextEditingController for delivery address
+            TextFormField(
+              controller: _orderController.contactController,
+              focusNode: _orderController.contactFocusNode, // Attach focus node
+              decoration: InputDecoration(
+                labelText: 'Enter Contact No',
+                floatingLabelBehavior:
+                    FloatingLabelBehavior.always, // Fix the label to the top
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 1, // Text area size
+              minLines: 1,
+              keyboardType: TextInputType.number,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter your  phone number';
+                }
+
+                final RegExp phoneRegex = RegExp(r'^\d{11}$');
+                if (!phoneRegex.hasMatch(value)) {
+                  return 'Enter a valid phone no.';
+                }
+
+                return null;
+              },
+              autovalidateMode: AutovalidateMode.onUserInteraction,
             ),
+            // Delivery address section
             const SizedBox(height: 20),
             // TextField with TextEditingController for delivery address
             // TextField with TextEditingController for delivery address

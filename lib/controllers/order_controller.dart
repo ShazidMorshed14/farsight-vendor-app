@@ -22,6 +22,8 @@ class OrderController extends GetxController {
   final TextEditingController deliveryAddressController =
       TextEditingController();
   final FocusNode deliveryAddressFocusNode = FocusNode();
+  final TextEditingController contactController = TextEditingController();
+  final FocusNode contactFocusNode = FocusNode();
 
   final paymentMethodTitles = {
     'COD': 'Cash On Delivery',
@@ -39,6 +41,7 @@ class OrderController extends GetxController {
   Future<void> placeOrder(
       {required double total_bill,
       required double total_discounted_bill,
+      required String contact_no,
       required String delivery_address,
       String? payment_method,
       required List<CartItem> ordered_products}) async {
@@ -48,6 +51,7 @@ class OrderController extends GetxController {
       final response = await placeMyOrder(
           total_bill: total_bill ?? 0.0,
           total_discounted_bill: total_discounted_bill ?? 0.0,
+          contact_no: '+88${contact_no}',
           delivery_address: delivery_address,
           payment_method: payment_method ?? 'COD',
           ordered_products: ordered_products);
@@ -85,7 +89,7 @@ class OrderController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    deliveryAddressFocusNode.requestFocus(); // Focus the text field
+    contactFocusNode.requestFocus(); // Focus the text field
   }
 
   @override
@@ -93,7 +97,7 @@ class OrderController extends GetxController {
     // Dispose the TextEditingController and FocusNode when the controller is closed
     deliveryAddressController.clear(); // Clear the text field value
     deliveryAddressController.dispose();
-    deliveryAddressFocusNode.dispose();
+    contactFocusNode.dispose();
     super.onClose();
   }
 }
