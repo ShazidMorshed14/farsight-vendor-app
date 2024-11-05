@@ -1,5 +1,6 @@
 import 'package:another_stepper/another_stepper.dart';
 import 'package:dio/dio.dart';
+import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:farsight_vendor_app/model/order.dart';
@@ -47,7 +48,7 @@ class OrderDetailsController extends GetxController {
           iconWidget: Container(
             padding: const EdgeInsets.all(8),
             decoration: const BoxDecoration(
-                color: Colors.green,
+                color: TColors.tprimary,
                 borderRadius: BorderRadius.all(Radius.circular(30))),
             child: const Icon(Icons.check, color: Colors.white),
           ),
