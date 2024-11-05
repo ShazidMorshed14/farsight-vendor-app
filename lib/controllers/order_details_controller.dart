@@ -1,3 +1,4 @@
+import 'package:another_stepper/another_stepper.dart';
 import 'package:dio/dio.dart';
 import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/model/cart_item.dart';
@@ -30,5 +31,32 @@ class OrderDetailsController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  List<StepperData> convertOrderLifeHistoryToStepperData() {
+    if (orderDetails.value?.orderLifeHistory != null &&
+        orderDetails.value!.orderLifeHistory!.isNotEmpty) {
+      List<StepperData> stepperData =
+          orderDetails.value!.orderLifeHistory!.reversed.map((history) {
+        String title = history.label ?? "";
+        String subtitle = history.description ?? "";
+
+        return StepperData(
+          title: StepperText(title),
+          subtitle: StepperText(subtitle),
+          iconWidget: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.all(Radius.circular(30))),
+            child: const Icon(Icons.check, color: Colors.white),
+          ),
+        );
+      }).toList();
+
+      return stepperData;
+    }
+
+    return [];
   }
 }

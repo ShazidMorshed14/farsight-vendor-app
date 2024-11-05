@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:farsight_vendor_app/components/global/app_bars/custom_appbar_with_multi_actions.dart';
 import 'package:farsight_vendor_app/components/global/no_data_found.dart';
+import 'package:farsight_vendor_app/components/screens/order_details_screen/order_life_cycle.dart';
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/controllers/order_details_controller.dart';
 import 'package:farsight_vendor_app/model/order.dart';
@@ -60,6 +61,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           child: ListView(
             children: [
               orderDetailsSection(controller.orderDetails.value!),
+              OrderLifeCycle(),
             ],
           ),
         );

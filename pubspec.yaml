@@ -66,6 +66,7 @@ dependencies:
   print_bluetooth_thermal: ^1.1.1
   http_parser: ^4.0.2
   package_info_plus: ^8.0.0
+  another_stepper: ^1.2.2
 
 dev_dependencies:
   flutter_test:
