@@ -2,6 +2,7 @@
 import 'package:farsight_vendor_app/components/global/app_bars/custom_appbar_with_multi_actions.dart';
 import 'package:farsight_vendor_app/components/global/no_data_found.dart';
 import 'package:farsight_vendor_app/components/screens/order_details_screen/order_life_cycle.dart';
+import 'package:farsight_vendor_app/components/screens/order_details_screen/ordered_products_list.dart';
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/controllers/order_details_controller.dart';
 import 'package:farsight_vendor_app/model/order.dart';
@@ -62,6 +63,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             children: [
               orderDetailsSection(controller.orderDetails.value!),
               OrderLifeCycle(),
+              OrderedProductsList(),
             ],
           ),
         );
@@ -99,12 +101,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             title: 'Total',
             value: '${controller.orderDetails.value?.totalBill ?? '0.0'}',
             fontSize: 11,
+            isCurrency: true,
           ),
           DataRowWidget(
             title: 'Sub-Total',
             value:
                 '${controller.orderDetails.value?.totalDiscountedBill ?? '0.0'}',
             fontSize: 11,
+            isCurrency: true,
           ),
           const SizedBox(
             height: 10,
@@ -144,17 +148,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           )
         ],
       ),
-    );
-  }
-
-  Widget shippingAddressSection(String address) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(address),
-        ),
-      ],
     );
   }
 }

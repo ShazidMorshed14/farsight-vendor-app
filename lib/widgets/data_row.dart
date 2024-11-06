@@ -7,6 +7,7 @@ class DataRowWidget extends StatelessWidget {
   final bool isBold;
   final Color? valueColor;
   final double? fontSize;
+  final bool? isCurrency;
 
   const DataRowWidget({
     Key? key,
@@ -15,6 +16,7 @@ class DataRowWidget extends StatelessWidget {
     this.isBold = false,
     this.valueColor,
     this.fontSize,
+    this.isCurrency = false,
   }) : super(key: key);
 
   @override
@@ -33,7 +35,7 @@ class DataRowWidget extends StatelessWidget {
             ),
           ),
           Text(
-            value,
+            '$value ${isCurrency! ? '৳' : ''}',
             style: TextStyle(
               fontSize: fontSize ?? 16,
               fontWeight: isBold ? FontWeight.bold : FontWeight.w500,

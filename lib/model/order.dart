@@ -7,8 +7,8 @@ class Order {
   String? orderNo;
   String? receiptNo;
   UserId? userId;
-  int? totalBill;
-  int? totalDiscountedBill;
+  dynamic totalBill;
+  dynamic totalDiscountedBill;
   String? deliveryAddress;
   String? contactNo;
   List<OrderedProduct>? orderedProducts;
