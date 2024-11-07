@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:farsight_vendor_app/controllers/auth_controller.dart';
 import 'package:farsight_vendor_app/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,13 +12,12 @@ import 'package:farsight_vendor_app/model/user.dart';
 class THomeAppBar extends StatelessWidget {
   const THomeAppBar({
     Key? key,
-    required this.user,
   }) : super(key: key);
-
-  final Map<String, dynamic> user;
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthController>();
+
     return TAppBar(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,11 +27,11 @@ class THomeAppBar extends StatelessWidget {
                   .textTheme
                   .labelMedium!
                   .apply(color: const Color.fromARGB(255, 247, 245, 245))),
-          Text(user['name'] ?? 'Unknown',
+          Obx(() => Text(authController.user.value?.name ?? 'Unknown',
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall!
-                  .apply(color: Colors.white)),
+                  .apply(color: Colors.white))),
         ],
       ),
       actions: [

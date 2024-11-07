@@ -1,11 +1,17 @@
+import 'package:farsight_vendor_app/controllers/auth_controller.dart';
 import 'package:farsight_vendor_app/screens/orders_screen.dart';
+import 'package:farsight_vendor_app/service/auth.dart';
+import 'package:farsight_vendor_app/utils/bottom_sheet.dart';
 import 'package:farsight_vendor_app/utils/routing.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class ProfileScreen extends StatelessWidget {
+  final authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +38,11 @@ class ProfileScreen extends StatelessWidget {
                 'assets/images/avatar-thumb.png'), // Replace with your image
           ),
           SizedBox(height: 10),
-          Text(
-            'Darlene Robertson',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Obx(
+            () => Text(
+              authController.user.value?.name ?? 'Unknown',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ),
           Text(
             'Active status',
@@ -76,9 +84,15 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {},
                 ),
                 ProfileMenuItem(
-                  icon: Icons.credit_card,
-                  title: 'Cards',
-                  onTap: () {},
+                  icon: Icons.logout_outlined,
+                  title: 'Logout',
+                  onTap: () async {
+                    showConfirmAlert(
+                        message: 'Do you want to logout?',
+                        onConfirm: () async {
+                          await logout();
+                        });
+                  },
                 ),
               ],
             ),

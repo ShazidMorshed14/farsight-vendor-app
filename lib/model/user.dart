@@ -1,42 +1,42 @@
 class User {
-  String id;
-  String name;
-  String username;
-  String email;
-  String phone;
-  String image;
-  String role;
-  dynamic designation;
-  String status;
-  int userWeight;
-  bool isPassResetReq;
+  String? id;
+  String? name;
+  String? username;
+  String? email;
+  String? phone;
+  String? image;
+  String? role;
+  String? designation; // Make designation nullable
+  String? status;
+  int? userWeight;
+  bool? isPassResetReq;
 
   User({
-    required this.id,
-    required this.name,
-    required this.username,
-    required this.email,
-    required this.phone,
-    required this.image,
-    required this.role,
-    required this.designation,
-    required this.status,
-    required this.userWeight,
-    required this.isPassResetReq,
+    this.id,
+    this.name,
+    this.username,
+    this.email,
+    this.phone,
+    this.image,
+    this.role,
+    this.designation, // Make designation optional
+    this.status,
+    this.userWeight,
+    this.isPassResetReq,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['_id'],
+      id: json['_id'], // Provide default values if needed
       name: json['name'],
       username: json['username'],
       email: json['email'],
       phone: json['phone'],
       image: json['image'],
       role: json['role'],
-      designation: json['designation'],
+      designation: json['designation'], // Keep nullable without default
       status: json['status'],
-      userWeight: json['user_weight'],
+      userWeight: json['user_weight'] ?? 0,
       isPassResetReq: json['isPassResetReq'] ?? false,
     );
   }

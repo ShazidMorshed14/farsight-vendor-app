@@ -1,9 +1,12 @@
+import 'package:farsight_vendor_app/screens/signin_screen.dart';
 import 'package:farsight_vendor_app/utils/notification.dart';
+import 'package:farsight_vendor_app/utils/routing.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:farsight_vendor_app/model/user.dart';
 import 'package:farsight_vendor_app/service/request.dart';
 
-Future<User> signin(
+Future<User?> signin(
     {required String identifier, required String password}) async {
   Map<String, dynamic> body = {
     'identifier': '+88$identifier',
@@ -30,20 +33,7 @@ Future<User> signin(
 
     return user;
   } else {
-    bool? isPassResetReq = response?['data']?['isPassResetReq'];
-    return User(
-      id: response?['data']?['_id'] ?? '',
-      name: '',
-      username: '',
-      email: '',
-      phone: '',
-      image: '',
-      role: '',
-      designation: '',
-      status: '',
-      userWeight: 999999,
-      isPassResetReq: isPassResetReq ?? false,
-    );
+    return null;
   }
 }
 
@@ -76,4 +66,10 @@ Future logout() async {
   // await authStorage.write('refreshToken', null);
   await authStorage.write('accessToken', null);
   await authStorage.write('isAuth', false);
+  navigator!.pushAndRemoveUntil(
+    createPageRoute(
+      const SignInScreen(),
+    ),
+    (route) => false,
+  );
 }

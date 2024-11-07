@@ -7,6 +7,7 @@ import 'package:farsight_vendor_app/components/widgets/images/t_rounded_image.da
 import 'package:farsight_vendor_app/components/widgets/layouts/grid_layout.dart';
 import 'package:farsight_vendor_app/components/widgets/products/product_card_vertical.dart';
 import 'package:farsight_vendor_app/constants/image_strings.dart';
+import 'package:farsight_vendor_app/controllers/auth_controller.dart';
 import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/controllers/product_controller.dart';
 import 'package:farsight_vendor_app/controllers/subcategory_controller.dart';
@@ -41,8 +42,6 @@ class HeroScreen extends StatefulWidget {
 }
 
 class _HeroScreenState extends State<HeroScreen> {
-  Map<String, dynamic> user = {};
-
   final GetStorage authStorage = GetStorage('authStorage');
   bool bannersLoading = false;
 
@@ -62,10 +61,12 @@ class _HeroScreenState extends State<HeroScreen> {
         Get.put(SubcategoryController());
     final ProductController productController = Get.put(ProductController());
     final _cartController = Get.put(CartController());
+    final authController = Get.find<AuthController>();
 
     return RefreshIndicator(
       onRefresh: () async {
         preloadData();
+        authController.getUserDetails();
       },
       child: Scaffold(
         backgroundColor: TColors.primaryBackground,
@@ -77,7 +78,7 @@ class _HeroScreenState extends State<HeroScreen> {
                   child: Column(
                 children: [
                   ///hero section header
-                  THomeAppBar(user: user),
+                  THomeAppBar(),
 
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
@@ -197,36 +198,8 @@ class _HeroScreenState extends State<HeroScreen> {
     setState(() {
       bannersLoading = false;
     });
-    print('bannersLoading-->$bannersLoading');
-
-    var userData = await authStorage.read('user');
-    print('userFromHero$userData');
-    if (userData != null) {
-      setState(() {
-        user = userData;
-      });
-    }
 
     await Get.put(SubcategoryController()).fetchSubCategories();
     await Get.put(ProductController()).fetchFeaturedProducts();
-
-    // var res = await fetchShiftInfo();
-
-    // if (res != null) {
-    //   if (mounted) {
-    //     setState(() {
-    //       shiftData = res;
-    //       loadingShift = false;
-    //     });
-    //   }
-
-    // } else {
-    //   if (mounted) {
-    //     setState(() {
-    //       shiftData = null;
-    //       loadingShift = false;
-    //     });
-    //   }
-    // }
   }
 }

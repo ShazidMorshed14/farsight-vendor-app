@@ -61,9 +61,22 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           },
           child: ListView(
             children: [
+              ExpansionTile(
+                  title: Text(
+                    'Ordered Products',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  collapsedShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                    side: BorderSide.none,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                    side: BorderSide.none,
+                  ),
+                  children: [OrderedProductsList()]),
               orderDetailsSection(controller.orderDetails.value!),
               OrderLifeCycle(),
-              OrderedProductsList(),
             ],
           ),
         );

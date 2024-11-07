@@ -11,3 +11,5 @@ String formatCurrencyToTwoDecimal(double amount) {
   String formattedValue = amount.toStringAsFixed(2);
   return formattedValue;
 }
+
+String tk_sign = '৳';

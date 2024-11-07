@@ -1,4 +1,5 @@
 import 'package:farsight_vendor_app/constants/colors.dart';
+import 'package:farsight_vendor_app/controllers/auth_controller.dart';
 import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/screens/cart_screen.dart';
 import 'package:farsight_vendor_app/screens/category_screen.dart';
@@ -14,13 +15,14 @@ import '../foundation/sp_icon/sp_icon.dart';
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
-  final CartController _cartController = Get.put(CartController());
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final CartController _cartController = Get.put(CartController());
+  final AuthController authController = Get.put(AuthController());
+
   int currentIndex = 0;
 
   List<Widget> pages = [
@@ -36,7 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    preloadData();
+    //preloadData();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await authController.getUserDetails();
+    });
   }
 
   @override

@@ -1,6 +1,6 @@
-import 'package:lottie/lottie.dart';
-import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/widgets/button.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,7 +52,7 @@ showConfirmAlert({
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Button(
-                    color: red,
+                    color: Colors.red,
                     width: 120,
                     size: 'small',
                     title: 'Cancel',
@@ -89,6 +89,7 @@ showMessage({
   void Function()? onClose,
 }) {
   final height = Get.size.height;
+  final width = Get.size.width;
 
   Get.bottomSheet(
     isDismissible: isDismissible ?? true,
@@ -101,6 +102,7 @@ showMessage({
       builder: (BuildContext sheetContext) {
         return Container(
           height: height * 0.4,
+          width: width,
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -113,12 +115,12 @@ showMessage({
                     ? const Icon(
                         Icons.error,
                         size: 60,
-                        color: red,
+                        color: Colors.red,
                       )
                     : const Icon(
                         Icons.check_circle,
                         size: 60,
-                        color: green,
+                        color: Colors.green,
                       ),
               ),
               Visibility(
@@ -143,14 +145,15 @@ showMessage({
               Text(
                 title ?? 'Yeah !!!',
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
               Text(
                 message ?? 'Congratulation !!!  you have done it.',
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,

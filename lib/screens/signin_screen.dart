@@ -172,7 +172,7 @@ class _SignInScreenState extends State<SignInScreen> {
       isLoading = true;
     });
 
-    User user = await signin(
+    User? user = await signin(
       identifier: _phoneController.text,
       password: _passwordController.text,
     );
@@ -197,12 +197,12 @@ class _SignInScreenState extends State<SignInScreen> {
       return;
     }
 
-    if (user.isPassResetReq == true) {
+    if (user?.isPassResetReq == true) {
       navigator!.pushAndRemoveUntil(
         createPageRoute(
           //PasswordResetScreen(phone: _phoneController.text),
           PasswordResetScreen(
-              id: user.id, phone: '+88${_phoneController.text}'),
+              id: user!.id!, phone: '+88${_phoneController.text}'),
         ),
         (route) => false,
       );
