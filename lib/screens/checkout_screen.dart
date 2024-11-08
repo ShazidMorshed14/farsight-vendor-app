@@ -7,6 +7,8 @@ import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/controllers/order_controller.dart'; // Import the OrderController
 import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:farsight_vendor_app/utils/bottom_sheet.dart';
+import 'package:farsight_vendor_app/utils/global_bottom_sheet.dart';
+import 'package:farsight_vendor_app/utils/global_utils.dart';
 import 'package:farsight_vendor_app/utils/notification.dart';
 import 'package:farsight_vendor_app/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -35,17 +37,19 @@ class CheckoutScreen extends StatelessWidget {
               child: Button(
                 onPressed: () {
                   if (_orderController.deliveryAddressController.text.isEmpty ||
+                      _orderController.contactController.text.isEmpty ||
+                      _orderController.nameController.text.isEmpty ||
                       _orderController.selectedPaymentMethod.value.isEmpty) {
-                    errorNotif(
-                        message:
-                            "Please provide delivery address and payment method");
+                    errorNotif(message: "Please provide required informations");
                   } else {
-                    showConfirmAlert(
-                      isLoading: _orderController.isBtnLoading.value,
+                    showConfirmBottomSheet(
+                      context: context,
+                      title: 'Place the order!',
                       onConfirm: () async {
                         await _orderController.placeOrder(
                             total_bill: _cartController.get_total_bill,
                             total_discounted_bill: _cartController.subtotal,
+                            customer_name: _orderController.nameController.text,
                             contact_no: _orderController.contactController.text,
                             delivery_address:
                                 _orderController.deliveryAddressController.text,
@@ -91,14 +95,20 @@ class CheckoutScreen extends StatelessWidget {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Total: ${item.product_discounted_price}',
+                                'Total: ${item.product_discounted_price} ${tk_sign}',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                '${item.product_total_price}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  decoration: TextDecoration.lineThrough,
+                              Visibility(
+                                visible: item.product_discounted_price <
+                                        item.product_total_price
+                                    ? true
+                                    : false,
+                                child: Text(
+                                  '${item.product_total_price} ${tk_sign}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
                                 ),
                               ),
                             ],
@@ -110,7 +120,15 @@ class CheckoutScreen extends StatelessWidget {
             }),
 
             const SizedBox(height: 20),
-            // TextField with TextEditingController for delivery address
+
+            TSectionHeading(
+              title: 'Customer Informations',
+              leftPadding: 0,
+              showActionButton: false,
+            ),
+
+            const SizedBox(height: 20),
+
             // TextField with TextEditingController for delivery address
             TextFormField(
               controller: _orderController.contactController,
@@ -132,6 +150,28 @@ class CheckoutScreen extends StatelessWidget {
                 final RegExp phoneRegex = RegExp(r'^\d{11}$');
                 if (!phoneRegex.hasMatch(value)) {
                   return 'Enter a valid phone no.';
+                }
+
+                return null;
+              },
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              controller: _orderController.nameController,
+              focusNode: _orderController.nameFocusNode, // Attach focus node
+              decoration: InputDecoration(
+                labelText: 'Enter Name',
+                floatingLabelBehavior:
+                    FloatingLabelBehavior.always, // Fix the label to the top
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 1, // Text area size
+              minLines: 1,
+              keyboardType: TextInputType.text,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter your name';
                 }
 
                 return null;
@@ -201,22 +241,6 @@ class CheckoutScreen extends StatelessWidget {
             }),
 
             const SizedBox(height: 20),
-
-            // Button to proceed with checkout
-            // ElevatedButton(
-            //   onPressed: () {
-            //     // Handle checkout action
-            //     String address =
-            //         _orderController.deliveryAddressController.text;
-            //     String paymentMethod =
-            //         _orderController.selectedPaymentMethod.value;
-
-            //     // Proceed with order placement
-            //     print('Delivery Address: $address');
-            //     print('Payment Method: $paymentMethod');
-            //   },
-            //   child: Text('Place Order'),
-            // ),
           ],
         ),
       ),

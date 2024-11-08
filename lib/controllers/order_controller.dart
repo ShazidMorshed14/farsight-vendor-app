@@ -24,6 +24,8 @@ class OrderController extends GetxController {
   final FocusNode deliveryAddressFocusNode = FocusNode();
   final TextEditingController contactController = TextEditingController();
   final FocusNode contactFocusNode = FocusNode();
+  final TextEditingController nameController = TextEditingController();
+  final FocusNode nameFocusNode = FocusNode();
 
   final paymentMethodTitles = {
     'COD': 'Cash On Delivery',
@@ -42,6 +44,7 @@ class OrderController extends GetxController {
       {required double total_bill,
       required double total_discounted_bill,
       required String contact_no,
+      required String customer_name,
       required String delivery_address,
       String? payment_method,
       required List<CartItem> ordered_products}) async {
@@ -52,6 +55,7 @@ class OrderController extends GetxController {
           total_bill: total_bill ?? 0.0,
           total_discounted_bill: total_discounted_bill ?? 0.0,
           contact_no: '+88${contact_no}',
+          customer_name: customer_name,
           delivery_address: delivery_address,
           payment_method: payment_method ?? 'COD',
           ordered_products: ordered_products);
@@ -97,7 +101,13 @@ class OrderController extends GetxController {
     // Dispose the TextEditingController and FocusNode when the controller is closed
     deliveryAddressController.clear(); // Clear the text field value
     deliveryAddressController.dispose();
+    deliveryAddressFocusNode.dispose();
+    contactController.clear(); // Clear the text field value
+    contactController.dispose();
     contactFocusNode.dispose();
+    nameController.clear(); // Clear the text field value
+    nameController.dispose();
+    nameFocusNode.dispose();
     super.onClose();
   }
 }

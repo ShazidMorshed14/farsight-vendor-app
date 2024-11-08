@@ -11,6 +11,7 @@ class Order {
   dynamic totalDiscountedBill;
   String? deliveryAddress;
   String? contactNo;
+  String? customerName;
   List<OrderedProduct>? orderedProducts;
   String? paymentMethod;
   dynamic cardNo;
@@ -37,6 +38,7 @@ class Order {
     this.totalDiscountedBill,
     this.deliveryAddress,
     this.contactNo,
+    this.customerName,
     this.orderedProducts,
     this.paymentMethod,
     this.cardNo,
@@ -71,6 +73,7 @@ class Order {
         totalDiscountedBill: json["total_discounted_bill"],
         deliveryAddress: json["delivery_address"],
         contactNo: json["contact_no"],
+        customerName: json["customer_name"],
         orderedProducts: json["ordered_products"] == null
             ? []
             : List<OrderedProduct>.from(json["ordered_products"]!

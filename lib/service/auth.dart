@@ -1,3 +1,4 @@
+import 'package:farsight_vendor_app/screens/home_screen.dart';
 import 'package:farsight_vendor_app/screens/signin_screen.dart';
 import 'package:farsight_vendor_app/utils/notification.dart';
 import 'package:farsight_vendor_app/utils/routing.dart';
@@ -59,16 +60,19 @@ Future<bool> updatePassword({
   return false;
 }
 
-Future logout() async {
-  //await postRequest(uri: '/auth/logout');
+Future<void> logout() async {
+  // Simulate a network request delay
+  await Future.delayed(Duration(seconds: 2));
+
   GetStorage authStorage = GetStorage('authStorage');
   await authStorage.write('user', null);
-  // await authStorage.write('refreshToken', null);
   await authStorage.write('accessToken', null);
   await authStorage.write('isAuth', false);
+
+  // Navigate to HomeScreen and clear the navigation stack
   navigator!.pushAndRemoveUntil(
     createPageRoute(
-      const SignInScreen(),
+      HomeScreen(),
     ),
     (route) => false,
   );

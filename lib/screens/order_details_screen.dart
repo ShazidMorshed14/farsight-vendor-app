@@ -62,6 +62,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           child: ListView(
             children: [
               ExpansionTile(
+                  initiallyExpanded: true,
                   title: Text(
                     'Ordered Products',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
@@ -158,7 +159,25 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           Text(
             '${controller.orderDetails.value?.contactNo ?? 'N/A'}',
             style: TextStyle(fontSize: 11),
-          )
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Divider(color: Colors.grey[300], height: 1),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Customer Name',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            '${controller.orderDetails.value?.customerName ?? 'N/A'}',
+            style: TextStyle(fontSize: 11),
+          ),
         ],
       ),
     );

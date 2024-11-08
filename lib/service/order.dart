@@ -7,6 +7,7 @@ Future<Map<String, dynamic>?> placeMyOrder(
     {required double total_bill,
     required double total_discounted_bill,
     required String contact_no,
+    required String customer_name,
     required String delivery_address,
     String? payment_method,
     required List<CartItem> ordered_products}) async {
@@ -17,6 +18,7 @@ Future<Map<String, dynamic>?> placeMyOrder(
     "total_bill": total_bill ?? 0.0,
     "total_discounted_bill": total_discounted_bill ?? 0.0,
     "contact_no": contact_no,
+    "customer_name": customer_name,
     "delivery_address": delivery_address,
     "payment_method": payment_method ?? 'COD',
     "ordered_products": orderedProductsJson

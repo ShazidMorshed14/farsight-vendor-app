@@ -1,7 +1,10 @@
 import 'package:farsight_vendor_app/controllers/auth_controller.dart';
+import 'package:farsight_vendor_app/screens/hero_screen.dart';
+import 'package:farsight_vendor_app/screens/home_screen.dart';
 import 'package:farsight_vendor_app/screens/orders_screen.dart';
 import 'package:farsight_vendor_app/service/auth.dart';
 import 'package:farsight_vendor_app/utils/bottom_sheet.dart';
+import 'package:farsight_vendor_app/utils/global_bottom_sheet.dart';
 import 'package:farsight_vendor_app/utils/routing.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +24,13 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            navigator!.push(
+              createPageRoute(
+                HomeScreen(),
+              ),
+            );
+          },
         ),
         title: Text(
           'Profile',
@@ -86,14 +95,17 @@ class ProfileScreen extends StatelessWidget {
                 ProfileMenuItem(
                   icon: Icons.logout_outlined,
                   title: 'Logout',
-                  onTap: () async {
-                    showConfirmAlert(
-                        message: 'Do you want to logout?',
-                        onConfirm: () async {
-                          await logout();
-                        });
+                  onTap: () {
+                    showConfirmBottomSheet(
+                      context: context,
+                      title: 'Are you sure?',
+                      message: 'Do you want to logout?',
+                      onConfirm: () async {
+                        await logout(); // Call your logout function here
+                      },
+                    );
                   },
-                ),
+                )
               ],
             ),
           ),
