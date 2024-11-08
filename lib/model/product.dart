@@ -3,18 +3,18 @@ import 'dart:convert';
 class ProductModel {
   String id;
   String name;
-  String? slug;
+  String slug;
   String sku;
-  int price;
+  dynamic price;
   String? description;
-  String? shape;
+  Brand? shape;
   Brand? brand;
   List<ColorElement>? colors;
   List<String>? supportedPowers;
   int quantity;
   List<ProductPicture>? productPictures;
-  List<Category>? categories;
-  List<Category>? subCategories;
+  List<Brand>? categories;
+  List<Brand>? subCategories;
   String? offerType;
   int? discountAmount;
   String? status;
@@ -28,7 +28,7 @@ class ProductModel {
   ProductModel({
     required this.id,
     required this.name,
-    this.slug,
+    required this.slug,
     required this.sku,
     required this.price,
     this.description,
@@ -61,9 +61,13 @@ class ProductModel {
         name: json["name"],
         slug: json["slug"],
         sku: json["sku"],
-        price: json["price"],
+        price: json["price"] == null
+            ? 0.0
+            : (json["price"] is int)
+                ? (json["price"] as int).toDouble()
+                : json["price"] as double,
         description: json["description"],
-        shape: json["shape"],
+        shape: json["shape"] == null ? null : Brand.fromJson(json["shape"]),
         brand: json["brand"] == null ? null : Brand.fromJson(json["brand"]),
         colors: json["colors"] == null
             ? []
@@ -79,12 +83,12 @@ class ProductModel {
                 .map((x) => ProductPicture.fromJson(x))),
         categories: json["categories"] == null
             ? []
-            : List<Category>.from(
-                json["categories"]!.map((x) => Category.fromJson(x))),
+            : List<Brand>.from(
+                json["categories"]!.map((x) => Brand.fromJson(x))),
         subCategories: json["subCategories"] == null
             ? []
-            : List<Category>.from(
-                json["subCategories"]!.map((x) => Category.fromJson(x))),
+            : List<Brand>.from(
+                json["subCategories"]!.map((x) => Brand.fromJson(x))),
         offerType: json["offer_type"],
         discountAmount: json["discount_amount"],
         status: json["status"],
@@ -111,7 +115,7 @@ class ProductModel {
         "sku": sku,
         "price": price,
         "description": description,
-        "shape": shape,
+        "shape": shape?.toJson(),
         "brand": brand?.toJson(),
         "colors": colors == null
             ? []
@@ -139,31 +143,6 @@ class ProductModel {
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "__v": v,
-      };
-}
-
-class Category {
-  String? id;
-  String? name;
-
-  Category({
-    this.id,
-    this.name,
-  });
-
-  factory Category.fromRawJson(String str) =>
-      Category.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["_id"],
-        name: json["name"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "_id": id,
-        "name": name,
       };
 }
 

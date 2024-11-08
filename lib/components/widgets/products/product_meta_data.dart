@@ -38,7 +38,7 @@ class TProductMetaData extends StatelessWidget {
             children: [
               //discounted price
               TProductPriceText(
-                price: variationController.productPrice.toInt().toString(),
+                price: variationController.productPrice.toDouble().toString(),
                 isLarge: true,
               ),
 

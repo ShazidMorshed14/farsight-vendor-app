@@ -42,6 +42,9 @@ class TColors {
   static const Color dark = Color(0xFF272727);
   static const Color primaryBackground = Color(0xFFF3F5FF);
 
+  //background color
+  static const Color tlightbg = Color.fromARGB(246, 247, 247, 247);
+
   //Background Container Colors
   static const Color lightContainer = Color(0xFFF6F6F6);
 

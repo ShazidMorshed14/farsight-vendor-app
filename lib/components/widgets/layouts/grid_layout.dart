@@ -1,19 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:farsight_vendor_app/components/widgets/products/product_card_vertical.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
 
 class TGridLayout extends StatelessWidget {
   const TGridLayout({
-    Key? key,
+    super.key,
     required this.itemCount,
-    this.crossAxisCount = 2,
-    this.mainAxisExtent = 270,
+    this.crossAxisCount,
+    this.mainAxisExtent,
     required this.itemBuilder,
     this.mainAxisSpacing,
     this.crossAxisSpacing,
-  }) : super(key: key);
+  });
 
   final int itemCount;
   final int? crossAxisCount;
@@ -27,8 +26,8 @@ class TGridLayout extends StatelessWidget {
     return GridView.builder(
         itemCount: itemCount,
         shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.only(bottom: 10),
+        //physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount ?? 2,
           mainAxisSpacing: mainAxisSpacing ?? TSizes.gridViewSpacing / 2,

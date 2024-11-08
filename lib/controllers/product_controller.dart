@@ -33,14 +33,14 @@ class ProductController extends GetxController {
   }
 
   ///-->Calculate Discount Percentage
-  String? calculatePercentage(int? price, int? discount_amount) {
+  String? calculatePercentage(dynamic price, dynamic discount_amount) {
     if (discount_amount == null || discount_amount <= 0) {
       return null;
     }
 
     if (price! <= 0) return null;
 
-    int salePrice = price - discount_amount;
+    double salePrice = price - discount_amount;
     double percentage = ((price - salePrice) / price) * 100;
     return percentage.toStringAsFixed(0);
   }

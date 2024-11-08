@@ -18,3 +18,18 @@ Future<List<ProductModel>> fetchFeaturedProductsList() async {
   }
   return [];
 }
+
+//======================new product fetching method=================
+Future<List<ProductModel>> fetchProductsForShop(dynamic query) async {
+  print('callig with query===========>$query');
+  var response = await getRequest(uri: '/product', query: query);
+  if (response?['status'] == 200) {
+    var data = response?['data']?['products'];
+    if (data == null) {
+      return [];
+    }
+    return List<ProductModel>.from(
+        data.map((data) => ProductModel.fromJson(data)));
+  }
+  return [];
+}
