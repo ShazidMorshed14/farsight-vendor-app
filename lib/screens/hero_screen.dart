@@ -152,36 +152,33 @@ class _HeroScreenState extends State<HeroScreen> {
                         return Center(child: Text('No Data Found'));
                       }
 
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: TGridLayout(
-                          itemCount: productController.featuredProducts.length,
-                          mainAxisExtent: height * 0.315,
-                          crossAxisCount: 2,
-                          crossAxisSpacing: TSizes.gridViewSpacing,
-                          mainAxisSpacing: TSizes.gridViewSpacing,
-                          itemBuilder: (_, index) {
-                            final product =
-                                productController.featuredProducts[index];
+                      return TGridLayout(
+                        itemCount: productController.featuredProducts.length,
+                        mainAxisExtent: height * 0.315,
+                        crossAxisCount: 2,
+                        crossAxisSpacing: TSizes.gridViewSpacing,
+                        mainAxisSpacing: TSizes.gridViewSpacing,
+                        itemBuilder: (_, index) {
+                          final product =
+                              productController.featuredProducts[index];
 
-                            final isInCart = _cartController.cartItems
-                                .any((item) => item.productId == product.id);
-                            final inCartIndex = _cartController.cartItems
-                                .indexWhere(
-                                    (item) => item.productId == product.id);
+                          final isInCart = _cartController.cartItems
+                              .any((item) => item.productId == product.id);
+                          final inCartIndex = _cartController.cartItems
+                              .indexWhere(
+                                  (item) => item.productId == product.id);
 
-                            int totalAddedQty = 0;
-                            if (inCartIndex != -1) {
-                              CartItem foundItem =
-                                  _cartController.cartItems[inCartIndex];
-                              totalAddedQty = foundItem?.quantity ?? 0;
-                            }
-                            return TProductCardVertical(
-                                product: product,
-                                isInCart: isInCart,
-                                totalAddedQty: totalAddedQty);
-                          },
-                        ),
+                          int totalAddedQty = 0;
+                          if (inCartIndex != -1) {
+                            CartItem foundItem =
+                                _cartController.cartItems[inCartIndex];
+                            totalAddedQty = foundItem?.quantity ?? 0;
+                          }
+                          return TProductCardVertical(
+                              product: product,
+                              isInCart: isInCart,
+                              totalAddedQty: totalAddedQty);
+                        },
                       );
                     })
                   ],

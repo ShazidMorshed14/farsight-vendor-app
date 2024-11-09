@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:farsight_vendor_app/controllers/product_controller.dart';
+import 'package:farsight_vendor_app/controllers/product_variation_controller.dart';
 import 'package:farsight_vendor_app/controllers/shop_controller.dart';
 import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:farsight_vendor_app/utils/notification.dart';
@@ -12,6 +14,7 @@ class CartController extends GetxController {
 
   final productController = Get.put(ProductController());
   final shopController = Get.put(ShopController());
+  final variationController = Get.put(ProductVariatonController());
 
   final box = GetStorage();
   var cartItems = <CartItem>[].obs; // Observable list for live updates
@@ -46,8 +49,8 @@ class CartController extends GetxController {
   }
 
   void incrementCartItemQuantity(CartItem item) {
-    int existingIndex =
-        cartItems.indexWhere((element) => element.productId == item.productId);
+    int existingIndex = cartItems.indexWhere((element) =>
+        element.productId == item.productId && element.variant == item.variant);
 
     if (existingIndex >= 0) {
       CartItem selectedCartItem = cartItems[existingIndex];
@@ -73,8 +76,8 @@ class CartController extends GetxController {
   }
 
   void decrementCartItemQuantity(CartItem item) {
-    int existingIndex =
-        cartItems.indexWhere((element) => element.productId == item.productId);
+    int existingIndex = cartItems.indexWhere((element) =>
+        element.productId == item.productId && element.variant == item.variant);
     if (existingIndex >= 0) {
       // Decrement the quantity if the item exists and quantity > 1
       if (cartItems[existingIndex].quantity > 1) {
@@ -91,7 +94,7 @@ class CartController extends GetxController {
         saveCart(); // Save the updated cart
       } else {
         // Optionally, remove the item from the cart if the quantity is 1
-        removeItem(item.productId);
+        removeItem(item.productId, item.variant);
         successNotif(message: 'Item removed from cart');
       }
     } else {
@@ -105,16 +108,20 @@ class CartController extends GetxController {
         element.productId == item.productId && element.variant == item.variant);
     if (existingIndex >= 0) {
       CartItem selectedCartItem = cartItems[existingIndex];
-      int newQuantity = selectedCartItem.quantity + item.quantity;
+      int newQuantity = selectQuantity.value;
       final totalPrice = selectedCartItem.product_unit_price * newQuantity;
       final totalDiscountedPrice = (selectedCartItem.product_unit_price -
-              selectedCartItem.product_discount) *
+              selectedCartItem.product_discount -
+              variationController.addedAmount.value) *
           newQuantity;
       if (newQuantity <= item.stock) {
         selectedCartItem.quantity = newQuantity;
         selectedCartItem.product_total_price = totalPrice;
         selectedCartItem.product_discounted_price = totalDiscountedPrice;
-        successNotif(message: 'Added to Cart Successfully!');
+        selectedCartItem.quantity = newQuantity;
+        successNotif(message: 'Added to Cart Successfully custom!');
+        saveCart();
+        cartItems.refresh();
       } else {
         errorNotif(message: 'Quantity not available!');
       }
@@ -128,8 +135,9 @@ class CartController extends GetxController {
   }
 
   // Remove an item from the cart
-  void removeItem(String productId) {
-    cartItems.removeWhere((item) => item.productId == productId);
+  void removeItem(String productId, String variant) {
+    cartItems.removeWhere(
+        (item) => item.productId == productId && item.variant == variant);
     saveCart();
   }
 

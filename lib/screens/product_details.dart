@@ -106,7 +106,7 @@ class ProductDetails extends StatelessWidget {
 
                   Center(
                       child: Html(
-                    data: product!.description ?? "",
+                    data: product.description ?? "",
                   )),
 
                   //--bottom navigation bar

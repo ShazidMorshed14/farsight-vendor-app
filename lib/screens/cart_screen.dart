@@ -93,7 +93,8 @@ class CartScreen extends StatelessWidget {
                               ),
                               IconButton(
                                   onPressed: () {
-                                    _cartController.removeItem(item!.productId);
+                                    _cartController.removeItem(
+                                        item.productId, item.variant);
                                   },
                                   icon: const Icon(Icons.delete))
                             ],

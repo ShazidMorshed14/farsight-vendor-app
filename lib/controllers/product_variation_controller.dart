@@ -53,6 +53,7 @@ class ProductVariatonController extends GetxController {
 
     // Update the quantity with the variant quantity
     productStock.value = variant?.colorQuantity ?? 0;
+
     if (variant.addAmount! > 0) {
       double currentProductPrice =
           product!.price!.toDouble() - product!.discountAmount!.toDouble();
@@ -66,10 +67,20 @@ class ProductVariatonController extends GetxController {
 
     // Set selectQuantity to 1 in CartController
     CartController cartController = Get.find<CartController>();
-    if (variant?.colorQuantity == 0) {
-      cartController.selectQuantity.value = 0;
+    int existingIndex = cartController.cartItems.indexWhere((element) =>
+        element.productId == product.id &&
+        element.variant == variant.color!.id);
+
+    //if already added to the cart then add already added quantity
+    if (existingIndex != -1) {
+      cartController.selectQuantity.value =
+          cartController.cartItems[existingIndex].quantity;
     } else {
-      cartController.selectQuantity.value = 1;
+      if (variant.colorQuantity == 0) {
+        cartController.selectQuantity.value = 0;
+      } else {
+        cartController.selectQuantity.value = 1;
+      }
     }
   }
 
