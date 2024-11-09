@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:farsight_vendor_app/controllers/product_controller.dart';
+import 'package:farsight_vendor_app/controllers/shop_controller.dart';
 import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:farsight_vendor_app/utils/notification.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class CartController extends GetxController {
   static CartController get instance => Get.find();
 
   final productController = Get.put(ProductController());
+  final shopController = Get.put(ShopController());
 
   final box = GetStorage();
   var cartItems = <CartItem>[].obs; // Observable list for live updates
@@ -134,11 +136,13 @@ class CartController extends GetxController {
   // Save the cart to GetStorage
   void saveCart() {
     productController.isLoading(true);
+    shopController.isLoading(true);
     List<Map<String, dynamic>> cartList =
         cartItems.map((e) => e.toMap()).toList();
     box.write('cart', jsonEncode(cartList));
     cartItems.refresh();
     productController.isLoading(false);
+    shopController.isLoading(false);
   }
 
   // Clear the cart
@@ -147,6 +151,8 @@ class CartController extends GetxController {
     box.remove('cart');
     productController.isLoading(true);
     productController.isLoading(false);
+    shopController.isLoading(true);
+    shopController.isLoading(false);
     errorNotif(message: 'Cart Cleared!');
   }
 

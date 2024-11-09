@@ -10,6 +10,7 @@ import 'package:farsight_vendor_app/constants/image_strings.dart';
 import 'package:farsight_vendor_app/controllers/auth_controller.dart';
 import 'package:farsight_vendor_app/controllers/cart_controller.dart';
 import 'package:farsight_vendor_app/controllers/product_controller.dart';
+import 'package:farsight_vendor_app/controllers/shop_controller.dart';
 import 'package:farsight_vendor_app/controllers/subcategory_controller.dart';
 import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,6 +61,7 @@ class _HeroScreenState extends State<HeroScreen> {
     final SubcategoryController subcategoryController =
         Get.put(SubcategoryController());
     final ProductController productController = Get.put(ProductController());
+    final ShopController shopController = Get.put(ShopController());
     final _cartController = Get.put(CartController());
     final authController = Get.find<AuthController>();
 
