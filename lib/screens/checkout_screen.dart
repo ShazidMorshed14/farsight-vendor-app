@@ -11,6 +11,7 @@ import 'package:farsight_vendor_app/utils/global_bottom_sheet.dart';
 import 'package:farsight_vendor_app/utils/global_utils.dart';
 import 'package:farsight_vendor_app/utils/notification.dart';
 import 'package:farsight_vendor_app/widgets/button.dart';
+import 'package:farsight_vendor_app/widgets/data_row.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,38 +32,82 @@ class CheckoutScreen extends StatelessWidget {
           ),
           showBackArrow: true),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(TSizes.sm),
-        child: Obx(() => SizedBox(
-              height: Get.size.height * 0.08,
-              child: Button(
-                onPressed: () {
-                  if (_orderController.deliveryAddressController.text.isEmpty ||
-                      _orderController.contactController.text.isEmpty ||
-                      _orderController.nameController.text.isEmpty ||
-                      _orderController.selectedPaymentMethod.value.isEmpty) {
-                    errorNotif(message: "Please provide required informations");
-                  } else {
-                    showConfirmBottomSheet(
-                      context: context,
-                      title: 'Place the order!',
-                      onConfirm: () async {
-                        await _orderController.placeOrder(
-                            total_bill: _cartController.get_total_bill,
-                            total_discounted_bill: _cartController.subtotal,
-                            customer_name: _orderController.nameController.text,
-                            contact_no: _orderController.contactController.text,
-                            delivery_address:
-                                _orderController.deliveryAddressController.text,
-                            payment_method:
-                                _orderController.selectedPaymentMethod.value,
-                            ordered_products: _cartController.cartItems);
-                      },
-                    );
-                  }
-                },
-                title: 'Place Order ${_cartController!.subtotal ?? 0} BDT',
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(1), // Light background color
+                borderRadius: BorderRadius.circular(12.0),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 6.0,
+                    offset: Offset(0, 3),
+                  ),
+                ],
               ),
-            )),
+              child: Obx(() => Column(
+                    children: [
+                      DataRowWidget(
+                        title: "Total:",
+                        value:
+                            "${_cartController.get_total_bill ?? 0.0} ${tk_sign}",
+                        isBold: true,
+                        fontSize: 14,
+                      ),
+                      DataRowWidget(
+                        title: "Discount:",
+                        value:
+                            "- ${_cartController.get_total_discount ?? 0.0} ${tk_sign}",
+                        isBold: true,
+                        fontSize: 14,
+                        valueColor: Colors.green,
+                      ),
+                      DataRowWidget(
+                        title: "Sub-Total:",
+                        value: "${_cartController.subtotal ?? 0.0} ${tk_sign}",
+                        isBold: true,
+                        fontSize: 14,
+                      ),
+                    ],
+                  )),
+            ),
+            const SizedBox(height: 12.0),
+            Button(
+              width: Get.size.width,
+              onPressed: () {
+                if (_orderController.deliveryAddressController.text.isEmpty ||
+                    _orderController.contactController.text.isEmpty ||
+                    _orderController.nameController.text.isEmpty ||
+                    _orderController.selectedPaymentMethod.value.isEmpty) {
+                  errorNotif(message: "Please provide required informations");
+                } else {
+                  showConfirmBottomSheet(
+                    context: context,
+                    title: 'Place the order!',
+                    onConfirm: () async {
+                      await _orderController.placeOrder(
+                          total_bill: _cartController.get_total_bill,
+                          total_discounted_bill: _cartController.subtotal,
+                          customer_name: _orderController.nameController.text,
+                          contact_no: _orderController.contactController.text,
+                          delivery_address:
+                              _orderController.deliveryAddressController.text,
+                          payment_method:
+                              _orderController.selectedPaymentMethod.value,
+                          ordered_products: _cartController.cartItems);
+                    },
+                  );
+                }
+              },
+              title: 'Place Order ${_cartController!.subtotal ?? 0} BDT',
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),

@@ -62,8 +62,8 @@ class OrderController extends GetxController {
       print(response);
       if (response?["status"] == 200) {
         successNotif(message: 'Order placed successfully!', title: 'Success');
-        _cartController.clearCart();
         Get.to(() => HomeScreen());
+        _cartController.clearCart();
       } else {
         errorNotif(title: 'Order placed Failed', message: 'Failed');
       }

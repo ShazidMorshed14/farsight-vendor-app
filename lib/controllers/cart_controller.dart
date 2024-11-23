@@ -57,7 +57,8 @@ class CartController extends GetxController {
       int newQuantity = selectedCartItem.quantity + 1;
       final totalPrice = selectedCartItem.product_unit_price * newQuantity;
       final totalDiscountedPrice = (selectedCartItem.product_unit_price -
-              selectedCartItem.product_discount) *
+              selectedCartItem.product_discount +
+              selectedCartItem.variant_added_amount) *
           newQuantity;
 
       if (newQuantity <= item.stock) {
@@ -85,7 +86,8 @@ class CartController extends GetxController {
         int newQuantity = selectedCartItem.quantity - 1;
         final totalPrice = selectedCartItem.product_unit_price * newQuantity;
         final totalDiscountedPrice = (selectedCartItem.product_unit_price -
-                selectedCartItem.product_discount) *
+                selectedCartItem.product_discount +
+                selectedCartItem.variant_added_amount) *
             newQuantity;
 
         selectedCartItem.quantity -= 1;
@@ -168,14 +170,14 @@ class CartController extends GetxController {
   int get totalItems => cartItems.fold(0, (sum, item) => sum + item.quantity);
 
   // Calculate the total
-  double get get_total_bill => cartItems.fold(
-      0, (sum, item) => sum + (item.product_unit_price * item.quantity));
+  double get get_total_bill =>
+      cartItems.fold(0, (sum, item) => sum + (item.product_total_price));
 
   // Calculate the discount
   double get get_total_discount => cartItems.fold(
       0, (sum, item) => sum + (item.product_discount * item.quantity));
 
   // Calculate the subtotal
-  double get subtotal => cartItems.fold(
-      0, (sum, item) => sum + (item.product_discounted_price * item.quantity));
+  double get subtotal =>
+      cartItems.fold(0, (sum, item) => sum + (item.product_discounted_price));
 }

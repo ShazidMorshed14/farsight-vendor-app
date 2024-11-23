@@ -4,6 +4,7 @@ import 'package:farsight_vendor_app/components/global/no_data_found.dart';
 import 'package:farsight_vendor_app/components/screens/shop/category_small_round_btn.dart';
 import 'package:farsight_vendor_app/components/skeleton/skeleton_box.dart';
 import 'package:farsight_vendor_app/components/widgets/layouts/grid_layout.dart';
+import 'package:farsight_vendor_app/components/widgets/products/filter_drawer.dart';
 import 'package:farsight_vendor_app/components/widgets/products/product_card_vertical.dart';
 import 'package:farsight_vendor_app/constants/colors.dart';
 import 'package:farsight_vendor_app/constants/sizes.dart';
@@ -85,51 +86,7 @@ class _ShopScreenState extends State<ShopScreen> {
             ),
           ],
         ),
-        drawer: Drawer(
-          width: 300.w,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 20.h),
-                Center(
-                  child: Text(
-                    'Filter Options',
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30.h),
-                Text(
-                  'Availability',
-                  style: TextStyle(fontSize: 18.sp),
-                ),
-                SizedBox(height: 10.h),
-                Row(
-                  children: [
-                    CategorySmallRoundButton(
-                      child: Text('All', style: TextStyle(fontSize: 14.sp)),
-                      onPressed: () {},
-                    ),
-                    CategorySmallRoundButton(
-                      child:
-                          Text('In Stock', style: TextStyle(fontSize: 14.sp)),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20.h),
-                Button(
-                  title: 'Apply Filter',
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-        ),
+        drawer: Drawer(width: 300.w, child: FilterDrawer()),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(

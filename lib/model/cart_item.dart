@@ -4,6 +4,7 @@ class CartItem {
   dynamic product_discount;
   dynamic product_total_price;
   dynamic product_discounted_price;
+  dynamic variant_added_amount;
   int quantity;
   String variant;
   String name;
@@ -18,6 +19,7 @@ class CartItem {
       required this.product_discount,
       required this.product_total_price,
       required this.product_discounted_price,
+      this.variant_added_amount,
       required this.quantity,
       required this.variant,
       required this.name,
@@ -33,6 +35,7 @@ class CartItem {
       'product_discount': product_discount,
       'product_total_price': product_total_price,
       'product_discounted_price': product_discounted_price,
+      'variant_added_amount': variant_added_amount,
       'quantity': quantity,
       'variant': variant,
       'name': name,
@@ -50,6 +53,7 @@ class CartItem {
       'product_discount': product_discount,
       'product_total_price': product_total_price,
       'product_discounted_price': product_discounted_price,
+      'variant_added_amount': variant_added_amount,
       'quantity': quantity,
       'variant': variant,
       'name': name,
@@ -67,6 +71,7 @@ class CartItem {
       product_discount: map['product_discount'],
       product_total_price: map['product_total_price'],
       product_discounted_price: map['product_discounted_price'],
+      variant_added_amount: map['variant_added_amount'],
       quantity: map['quantity'],
       variant: map['variant'],
       name: map['name'],

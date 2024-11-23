@@ -105,6 +105,8 @@ class TBottomAddToCart extends StatelessWidget {
                               (_productVariationController.productPrice.value *
                                       _cartController.selectQuantity.value)
                                   .toDouble(),
+                          variant_added_amount:
+                              _productVariationController.addedAmount.value,
                           name: product.name,
                           brand: product.brand?.name ?? 'N/A',
                           color: selectedVariant!.color!.name ?? 'N/A',
