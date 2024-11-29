@@ -13,6 +13,8 @@ class CustomAppBarwithMultipleActions extends StatelessWidget
   final TextStyle? subTitleStyle;
   final List<Widget>? actions;
   final bool? centerTitle;
+  final Color? leftIconColor;
+  final Color? leftIconBgColor;
 
   const CustomAppBarwithMultipleActions(
       {super.key,
@@ -23,7 +25,9 @@ class CustomAppBarwithMultipleActions extends StatelessWidget
       this.subTitle,
       this.subTitleStyle,
       this.actions,
-      this.centerTitle});
+      this.centerTitle,
+      this.leftIconColor,
+      this.leftIconBgColor});
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +39,11 @@ class CustomAppBarwithMultipleActions extends StatelessWidget
       leadingWidth: 80,
       leading: leftIcon != null
           ? IconButton(
-              style: TextButton.styleFrom(backgroundColor: Colors.white),
+              style: TextButton.styleFrom(
+                  backgroundColor: leftIconBgColor ?? Colors.white),
               icon: Icon(
                 leftIcon,
-                color: Colors.black,
+                color: leftIconColor ?? Colors.black,
                 size: TSizes.iconSm,
               ),
               onPressed: onLeftIconPressed,

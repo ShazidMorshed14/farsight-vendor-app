@@ -1,3 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
 import 'package:farsight_vendor_app/components/global/app_bars/custom_appbar_with_multi_actions.dart';
 import 'package:farsight_vendor_app/components/global/custom_search_box.dart';
 import 'package:farsight_vendor_app/components/global/no_data_found.dart';
@@ -14,12 +19,13 @@ import 'package:farsight_vendor_app/model/cart_item.dart';
 import 'package:farsight_vendor_app/screens/cart_screen.dart';
 import 'package:farsight_vendor_app/utils/routing.dart';
 import 'package:farsight_vendor_app/widgets/button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class ShopScreen extends StatefulWidget {
-  const ShopScreen({super.key});
+  final String? prefillSubCategory;
+  const ShopScreen({
+    Key? key,
+    this.prefillSubCategory,
+  }) : super(key: key);
 
   @override
   State<ShopScreen> createState() => _ShopScreenState();
@@ -34,6 +40,9 @@ class _ShopScreenState extends State<ShopScreen> {
   void initState() {
     super.initState();
     _cartController.loadCart();
+    if (widget.prefillSubCategory != null) {
+      productsController.selectedSubCategory.value = widget.prefillSubCategory!;
+    }
     productsController.fetchAllProducts();
   }
 
@@ -41,6 +50,10 @@ class _ShopScreenState extends State<ShopScreen> {
   void dispose() {
     super.dispose();
     Get.delete<ShopController>();
+  }
+
+  void closeDrawer() {
+    scaffoldKey.currentState?.closeDrawer();
   }
 
   @override
@@ -51,6 +64,8 @@ class _ShopScreenState extends State<ShopScreen> {
         appBar: CustomAppBarwithMultipleActions(
           title: 'Product',
           leftIcon: Icons.filter_list_rounded,
+          // leftIconBgColor: Colors.orange,
+          // leftIconColor: Colors.white,
           onLeftIconPressed: () {
             scaffoldKey.currentState?.openDrawer();
           },
@@ -86,7 +101,8 @@ class _ShopScreenState extends State<ShopScreen> {
             ),
           ],
         ),
-        drawer: Drawer(width: 300.w, child: FilterDrawer()),
+        drawer:
+            Drawer(width: 300.w, child: FilterDrawer(closeDrawer: closeDrawer)),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(

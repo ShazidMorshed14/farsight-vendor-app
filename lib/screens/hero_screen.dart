@@ -153,6 +153,7 @@ class _HeroScreenState extends State<HeroScreen> {
                       }
 
                       return TGridLayout(
+                        scrollPhysicsOn: true,
                         itemCount: productController.featuredProducts.length,
                         mainAxisExtent: height * 0.315,
                         crossAxisCount: 2,

@@ -61,7 +61,7 @@ class _ButtonState extends State<Button> {
       color: widget.isDisabled || widget.isLoading
           ? Colors.grey[500]
           : widget.color ?? const Color(0xff5567f7),
-      borderRadius: BorderRadius.circular(2),
+      borderRadius: BorderRadius.circular(8),
       child: InkWell(
         onTap: widget.isDisabled || widget.isLoading ? null : widget.onPressed,
         child: Container(
